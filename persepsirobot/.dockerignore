@@ -1,0 +1,7 @@
+.git
+output_*/
+datasets/
+__pycache__/
+*.pyc
+*.pyo
+.env

@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PERSEPSI — 3D Model Viewer</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --border: #2a2d3e;
+    --accent: #4f8ef7;
+    --green: #22c55e;
+    --red: #ef4444;
+    --yellow: #f59e0b;
+    --text: #e2e8f0;
+    --muted: #64748b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 14px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+  header .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 7px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  header .nav-btn:hover { border-color: var(--accent); background: rgba(79,142,247,0.1); color: var(--accent); }
+  header h1 { font-size: 15px; font-weight: 600; }
+
+  .main {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  /* ===== SIDEBAR ===== */
+  .sidebar {
+    width: 240px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+  }
+  .sidebar-title {
+    padding: 12px 14px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    color: var(--muted);
+    font-weight: 600;
+    border-bottom: 1px solid var(--border);
+  }
+  .output-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 0;
+  }
+  .output-item {
+    padding: 9px 14px;
+    cursor: pointer;
+    font-size: 12px;
+    font-family: 'Fira Mono', monospace;
+    color: var(--muted);
+    border-left: 3px solid transparent;
+    transition: all 0.12s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .output-item:hover { background: rgba(79,142,247,0.08); color: var(--text); }
+  .output-item.active {
+    background: rgba(79,142,247,0.12);
+    border-left-color: var(--accent);
+    color: var(--accent);
+  }
+  .no-outputs {
+    padding: 20px 14px;
+    color: var(--muted);
+    font-size: 12px;
+    text-align: center;
+  }
+
+  /* ===== VIEWPORT ===== */
+  .viewport-wrap {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+  #canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  /* ===== OVERLAY ===== */
+  #overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    background: var(--bg);
+    pointer-events: none;
+  }
+  #overlay.hidden { display: none; }
+  .overlay-icon { opacity: 0.15; }
+  #overlay-msg {
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .spinner {
+    width: 32px; height: 32px;
+    border: 3px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    display: none;
+  }
+  .spinner.visible { display: block; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ===== HUD ===== */
+  .hud {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(26,29,39,0.85);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 11px;
+    color: var(--muted);
+    display: none;
+    gap: 16px;
+    backdrop-filter: blur(6px);
+  }
+  .hud.visible { display: flex; }
+
+  .hud-item { display: flex; align-items: center; gap: 5px; }
+  .hud-key {
+    background: var(--border);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-family: monospace;
+    font-size: 10px;
+    color: var(--text);
+  }
+
+  /* ===== INFO PANEL ===== */
+  .info-panel {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(26,29,39,0.85);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 11px;
+    color: var(--muted);
+    display: none;
+    min-width: 160px;
+    backdrop-filter: blur(6px);
+    line-height: 1.8;
+  }
+  .info-panel.visible { display: block; }
+  .info-panel strong { color: var(--text); display: block; margin-bottom: 4px; font-size: 12px; }
+
+  /* ===== TOOLBAR ===== */
+  .toolbar {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    display: none;
+  }
+  .toolbar.visible { display: flex; }
+  .tool-btn {
+    background: rgba(26,29,39,0.85);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    color: var(--text);
+    width: 34px; height: 34px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    font-size: 15px;
+    backdrop-filter: blur(6px);
+    transition: background 0.12s, border-color 0.12s;
+    user-select: none;
+  }
+  .tool-btn:hover { background: rgba(79,142,247,0.15); border-color: var(--accent); }
+  .tool-btn.active { background: rgba(79,142,247,0.25); border-color: var(--accent); color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="/" class="nav-btn">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Control Panel
+  </a>
+  <h1>3D Model Viewer</h1>
+  <span id="model-name" style="color:var(--muted);font-size:12px;margin-left:4px;"></span>
+</header>
+
+<div class="main">
+  <div class="sidebar">
+    <div class="sidebar-title">Output Folders</div>
+    <div class="output-list" id="output-list">
+      <div class="no-outputs">Loading…</div>
+    </div>
+  </div>
+
+  <div class="viewport-wrap">
+    <canvas id="canvas"></canvas>
+
+    <div id="overlay">
+      <svg class="overlay-icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+      <div class="spinner" id="spinner"></div>
+      <div id="overlay-msg">Select an output folder to view the 3D model</div>
+    </div>
+
+    <div class="toolbar" id="toolbar">
+      <div class="tool-btn" id="btn-wire" title="Toggle Wireframe">⬡</div>
+      <div class="tool-btn" id="btn-reset" title="Reset Camera">⌖</div>
+    </div>
+
+    <div class="hud" id="hud">
+      <div class="hud-item"><span class="hud-key">drag</span> Rotate</div>
+      <div class="hud-item"><span class="hud-key">scroll</span> Zoom</div>
+      <div class="hud-item"><span class="hud-key">mid-drag</span> Pan</div>
+    </div>
+
+    <div class="info-panel" id="info-panel">
+      <strong id="info-name">—</strong>
+      <div id="info-details"></div>
+    </div>
+  </div>
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
+import { TrackballControls } from 'three/addons/controls/TrackballControls.js';
+
+// =========================================================
+// SCENE SETUP
+// =========================================================
+
+const canvas = document.getElementById('canvas');
+canvas.addEventListener('dragstart', e => e.preventDefault());
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+renderer.setPixelRatio(window.devicePixelRatio);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.setClearColor(0x0f1117);
+
+const scene = new THREE.Scene();
+
+const camera = new THREE.PerspectiveCamera(50, 1, 0.01, 1000);
+camera.position.set(0, 1, 3);
+
+const controls = new TrackballControls(camera, canvas);
+controls.rotateSpeed = 2.0;
+controls.zoomSpeed = 1.2;
+controls.panSpeed = 0.8;
+controls.minDistance = 0.1;
+controls.maxDistance = 500;
+
+// Lights
+const ambient = new THREE.AmbientLight(0xffffff, 1.2);
+scene.add(ambient);
+const dirA = new THREE.DirectionalLight(0xffffff, 1.5);
+dirA.position.set(5, 10, 5);
+scene.add(dirA);
+const dirB = new THREE.DirectionalLight(0x8ab4ff, 0.6);
+dirB.position.set(-5, -3, -5);
+scene.add(dirB);
+
+// Resize
+function resize() {
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  if (canvas.width !== w || canvas.height !== h) {
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  }
+}
+
+// Animate
+let animId;
+function animate() {
+  animId = requestAnimationFrame(animate);
+  resize();
+  controls.update();
+  renderer.render(scene, camera);
+}
+animate();
+
+// =========================================================
+// STATE
+// =========================================================
+
+let currentModel = null;
+let wireframe = false;
+let savedCamPos = null;
+let savedTarget = null;
+
+// =========================================================
+// LOAD MODEL
+// =========================================================
+
+function loadModel(folder) {
+  // UI state
+  setOverlay(true, 'Loading model…', true);
+  document.getElementById('toolbar').classList.remove('visible');
+  document.getElementById('hud').classList.remove('visible');
+  document.getElementById('info-panel').classList.remove('visible');
+  document.getElementById('model-name').textContent = folder;
+
+  // Remove old model
+  if (currentModel) {
+    scene.remove(currentModel);
+    currentModel.traverse(o => {
+      if (o.geometry) o.geometry.dispose();
+      if (o.material) {
+        const mats = Array.isArray(o.material) ? o.material : [o.material];
+        mats.forEach(m => {
+          if (m.map) m.map.dispose();
+          m.dispose();
+        });
+      }
+    });
+    currentModel = null;
+  }
+
+  const base = `/output-file/${folder}/odm_texturing/`;
+
+  const mtlLoader = new MTLLoader();
+  mtlLoader.setPath(base);           // base for MTL file
+  mtlLoader.setResourcePath(base);   // base for texture PNGs
+  mtlLoader.load(
+    'odm_textured_model_geo.mtl',
+    (materials) => {
+      materials.preload();
+
+      const objLoader = new OBJLoader();
+      objLoader.setMaterials(materials);
+      objLoader.load(
+        base + 'odm_textured_model_geo.obj',
+        (obj) => onLoaded(obj, folder),
+        (xhr) => {
+          if (xhr.total) {
+            const pct = Math.round(xhr.loaded / xhr.total * 100);
+            document.getElementById('overlay-msg').textContent = `Loading… ${pct}%`;
+          }
+        },
+        () => setOverlay(true, 'Failed to load model', false)
+      );
+    },
+    null,
+    () => {
+      // MTL failed — try OBJ alone with default material
+      const objLoader = new OBJLoader();
+      objLoader.load(
+        base + 'odm_textured_model_geo.obj',
+        (obj) => onLoaded(obj, folder),
+        null,
+        () => setOverlay(true, 'Failed to load model', false)
+      );
+    }
+  );
+}
+
+function onLoaded(obj, folder) {
+  // Center + fit
+  const box = new THREE.Box3().setFromObject(obj);
+  const center = box.getCenter(new THREE.Vector3());
+  const size = box.getSize(new THREE.Vector3());
+  const maxDim = Math.max(size.x, size.y, size.z);
+  const scale = 2 / maxDim;
+
+  obj.position.sub(center.multiplyScalar(scale));
+  obj.scale.setScalar(scale);
+
+  scene.add(obj);
+  currentModel = obj;
+
+  // Reset camera
+  resetCamera();
+
+  // Info
+  let triCount = 0;
+  obj.traverse(o => {
+    if (o.isMesh && o.geometry) {
+      const idx = o.geometry.index;
+      triCount += idx ? idx.count / 3 : o.geometry.attributes.position.count / 3;
+    }
+  });
+
+  document.getElementById('info-name').textContent = folder;
+  document.getElementById('info-details').innerHTML =
+    `Triangles: ${Math.round(triCount).toLocaleString()}<br>` +
+    `Size: ${size.x.toFixed(2)} × ${size.y.toFixed(2)} × ${size.z.toFixed(2)}`;
+
+  setOverlay(false);
+  document.getElementById('toolbar').classList.add('visible');
+  document.getElementById('hud').classList.add('visible');
+  document.getElementById('info-panel').classList.add('visible');
+}
+
+function resetCamera() {
+  camera.position.set(0, 0.5, 3);
+  controls.target.set(0, 0, 0);
+  controls.update();
+}
+
+function setOverlay(visible, msg = '', loading = false) {
+  const el = document.getElementById('overlay');
+  el.classList.toggle('hidden', !visible);
+  document.getElementById('overlay-msg').textContent = msg;
+  document.getElementById('spinner').classList.toggle('visible', loading);
+}
+
+// =========================================================
+// TOOLBAR
+// =========================================================
+
+document.getElementById('btn-wire').addEventListener('click', () => {
+  wireframe = !wireframe;
+  document.getElementById('btn-wire').classList.toggle('active', wireframe);
+  if (currentModel) {
+    currentModel.traverse(o => {
+      if (o.isMesh) {
+        const mats = Array.isArray(o.material) ? o.material : [o.material];
+        mats.forEach(m => { m.wireframe = wireframe; });
+      }
+    });
+  }
+});
+
+document.getElementById('btn-reset').addEventListener('click', resetCamera);
+
+// =========================================================
+// SIDEBAR — list outputs
+// =========================================================
+
+async function loadOutputList() {
+  const list = document.getElementById('output-list');
+  try {
+    const res = await fetch('/outputs');
+    const folders = await res.json();
+
+    if (!folders.length) {
+      list.innerHTML = '<div class="no-outputs">No output folders found</div>';
+      return;
+    }
+
+    list.innerHTML = '';
+    folders.forEach(folder => {
+      const item = document.createElement('div');
+      item.className = 'output-item';
+      item.textContent = folder;
+      item.title = folder;
+      item.addEventListener('click', () => {
+        document.querySelectorAll('.output-item').forEach(el => el.classList.remove('active'));
+        item.classList.add('active');
+        loadModel(folder);
+      });
+      list.appendChild(item);
+    });
+  } catch {
+    list.innerHTML = '<div class="no-outputs">Failed to load outputs</div>';
+  }
+}
+
+loadOutputList();
+</script>
+
+</body>
+</html>

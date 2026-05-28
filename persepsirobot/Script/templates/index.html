@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PERSEPSI — 3D Reconstruction Control</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --border: #2a2d3e;
+    --accent: #4f8ef7;
+    --green: #22c55e;
+    --red: #ef4444;
+    --yellow: #f59e0b;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --font-mono: 'Fira Mono', 'Consolas', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 14px;
+    min-height: 100vh;
+  }
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  header h1 { font-size: 18px; font-weight: 600; letter-spacing: 0.5px; }
+  header span { color: var(--muted); font-size: 12px; }
+  header .nav-btn {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 7px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  header .nav-btn:hover { border-color: var(--accent); background: rgba(79,142,247,0.1); color: var(--accent); }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .panel-header {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .panel-title {
+    font-weight: 600;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .panel-body { padding: 16px; }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .badge-idle    { background: #1e293b; color: var(--muted); }
+  .badge-running { background: #052e16; color: var(--green); }
+  .badge-error   { background: #2d0a0a; color: var(--red); }
+
+  .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .badge-running .dot { animation: pulse 1s ease-in-out infinite; }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .form-group { margin-bottom: 12px; }
+  label { display: block; color: var(--muted); font-size: 11px; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  input[type=text], input[type=number] {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 7px 10px;
+    color: var(--text);
+    font-size: 13px;
+    transition: border-color 0.15s;
+  }
+  input:focus { outline: none; border-color: var(--accent); }
+  .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 18px;
+    border-radius: 7px;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: opacity 0.15s, transform 0.1s;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-green  { background: var(--green); color: #000; }
+  .btn-red    { background: var(--red);   color: #fff; }
+  .btn-blue   { background: var(--accent); color: #fff; }
+  .btn-ghost  { background: var(--border); color: var(--text); }
+  .btn-sm     { padding: 5px 12px; font-size: 12px; }
+
+  .btn-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+  }
+
+  .log-box {
+    background: #080a0f;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    height: 220px;
+    overflow-y: auto;
+    padding: 10px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.6;
+    margin-top: 14px;
+    scroll-behavior: smooth;
+  }
+  .log-box .line { white-space: pre-wrap; word-break: break-all; }
+  .log-box .line.ok     { color: var(--green); }
+  .log-box .line.err    { color: var(--red); }
+  .log-box .line.warn   { color: var(--yellow); }
+  .log-box .line.info   { color: var(--accent); }
+  .log-box .line.done   { color: var(--yellow); font-weight: bold; }
+  
+
+  .stat-row {
+    display: flex;
+    gap: 16px;
+    margin: 12px 0;
+    flex-wrap: wrap;
+  }
+  .stat {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 16px;
+    flex: 1;
+    min-width: 100px;
+    text-align: center;
+  }
+  .stat-val { font-size: 22px; font-weight: 700; color: var(--accent); }
+  .stat-lbl { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  .progress-wrap {
+    margin: 10px 0;
+    display: none;
+  }
+  .progress-wrap.visible { display: block; }
+  .progress-bar-bg {
+    background: var(--border);
+    border-radius: 20px;
+    height: 8px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 20px;
+    transition: width 0.5s ease;
+    width: 0%;
+  }
+  .progress-label {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 14px 0;
+  }
+
+  .toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 999;
+  }
+  .toast {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 13px;
+    animation: slideIn 0.2s ease;
+    max-width: 300px;
+  }
+  .toast.ok   { border-left: 3px solid var(--green); }
+  .toast.err  { border-left: 3px solid var(--red); }
+  @keyframes slideIn { from { transform: translateX(20px); opacity: 0; } }
+
+  .section-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--muted);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4f8ef7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+  <h1>PERSEPSI Control</h1>
+  <span>3D Reconstruction Pipeline</span>
+  <a href="/viewer" class="nav-btn">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/></svg>
+    3D Viewer
+  </a>
+</header>
+
+<div class="layout">
+
+  <!-- ===== CAPTURE PANEL ===== -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+        Image Capture
+      </div>
+      <div id="capture-badge" class="badge badge-idle"><span class="dot"></span>Idle</div>
+    </div>
+    <div class="panel-body">
+
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat-val" id="img-count">—</div>
+          <div class="stat-lbl">Images in Dataset</div>
+        </div>
+      </div>
+
+      <div class="section-title">Configuration</div>
+
+      <div class="form-group">
+        <label>ESP32 IP</label>
+        <input type="text" id="cap-esp32" value="{{ config.esp32_ip }}">
+      </div>
+      <div class="form-group">
+        <label>Camera Device</label>
+        <input type="text" id="cap-device" value="{{ config.camera_device }}">
+      </div>
+      <div class="form-group">
+        <label>Dataset Save Directory</label>
+        <input type="text" id="cap-savedir" value="{{ config.save_dir }}">
+      </div>
+      <div class="row-2">
+        <div class="form-group">
+          <label>Frame Width</label>
+          <input type="number" id="cap-width" value="{{ config.frame_width }}">
+        </div>
+        <div class="form-group">
+          <label>Frame Height</label>
+          <input type="number" id="cap-height" value="{{ config.frame_height }}">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Relay ID</label>
+        <input type="number" id="cap-relay" value="{{ config.relay_id }}">
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-green" id="btn-cap-start" onclick="captureStart()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Start Capture
+        </button>
+        <button class="btn btn-red" id="btn-cap-stop" onclick="captureStop()" disabled>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="1"/></svg>
+          Stop
+        </button>
+        <button class="btn btn-ghost btn-sm" onclick="clearLog('capture-log')">Clear Log</button>
+      </div>
+
+      <div id="capture-log" class="log-box"></div>
+    </div>
+  </div>
+
+  <!-- ===== ODM PANEL ===== -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        3D Reconstruction (ODM)
+      </div>
+      <div id="odm-badge" class="badge badge-idle"><span class="dot"></span>Idle</div>
+    </div>
+    <div class="panel-body">
+
+      <div class="progress-wrap" id="odm-progress-wrap">
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="odm-progress-fill"></div>
+        </div>
+        <div class="progress-label">
+          <span id="odm-progress-status">—</span>
+          <span id="odm-progress-pct">0%</span>
+        </div>
+      </div>
+
+      <div class="section-title">NodeODM Server</div>
+
+      <div class="row-2">
+        <div class="form-group">
+          <label>Host</label>
+          <input type="text" id="odm-host" value="{{ config.node_host }}">
+        </div>
+        <div class="form-group">
+          <label>Port</label>
+          <input type="number" id="odm-port" value="{{ config.node_port }}">
+        </div>
+      </div>
+
+      <div class="section-title">Paths</div>
+
+      <div class="form-group">
+        <label>Input Folder (images)</label>
+        <input type="text" id="odm-input" value="{{ config.odm_input }}">
+      </div>
+      <div class="form-group">
+        <label>Output Folder</label>
+        <input type="text" id="odm-output" value="{{ config.odm_output }}">
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-blue" id="btn-odm-start" onclick="odmStart()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Run ODM
+        </button>
+        <button class="btn btn-red" id="btn-odm-stop" onclick="odmStop()" disabled>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="1"/></svg>
+          Stop
+        </button>
+        <button class="btn btn-ghost btn-sm" onclick="clearLog('odm-log')">Clear Log</button>
+      </div>
+
+      <div id="odm-log" class="log-box"></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast-container" id="toasts"></div>
+
+<script>
+// =========================================================
+// TOAST
+// =========================================================
+function toast(msg, type = 'ok') {
+  const c = document.getElementById('toasts');
+  const el = document.createElement('div');
+  el.className = `toast ${type}`;
+  el.textContent = msg;
+  c.appendChild(el);
+  setTimeout(() => el.remove(), 3500);
+}
+
+// =========================================================
+// LOG HELPERS
+// =========================================================
+function clearLog(id) {
+  document.getElementById(id).innerHTML = '';
+}
+
+function appendLog(id, text) {
+  const box = document.getElementById(id);
+  const line = document.createElement('div');
+  line.className = 'line';
+
+  // Colorize based on keywords
+  const t = text.toLowerCase();
+  if (t.includes('[success]') || t.includes('✓') || t.includes('completed')) line.classList.add('ok');
+  else if (t.includes('[error]') || t.includes('✗') || t.includes('failed')) line.classList.add('err');
+  else if (t.includes('[warn]') || t.includes('⚠') || t.includes('warning')) line.classList.add('warn');
+  else if (t.includes('[info]') || t.includes('ℹ') || t.includes('[trigger]')) line.classList.add('info');
+
+  // Strip ANSI escape codes
+  line.textContent = text.replace(/\x1B\[[0-9;]*[mGKHF]/g, '');
+  box.appendChild(line);
+  box.scrollTop = box.scrollHeight;
+}
+
+function doneLine(id, msg) {
+  const box = document.getElementById(id);
+  const line = document.createElement('div');
+  line.className = 'line done';
+  line.textContent = `— ${msg} —`;
+  box.appendChild(line);
+  box.scrollTop = box.scrollHeight;
+}
+
+// =========================================================
+// BADGE
+// =========================================================
+function setBadge(id, state) {
+  const el = document.getElementById(id);
+  el.className = 'badge';
+  if (state === 'running') { el.classList.add('badge-running'); el.innerHTML = '<span class="dot"></span>Running'; }
+  else if (state === 'error') { el.classList.add('badge-error'); el.innerHTML = '<span class="dot"></span>Error'; }
+  else { el.classList.add('badge-idle'); el.innerHTML = '<span class="dot"></span>Idle'; }
+}
+
+// =========================================================
+// CAPTURE
+// =========================================================
+let captureES = null;
+
+function captureStart() {
+  const params = {
+    esp32_ip: document.getElementById('cap-esp32').value,
+    camera_device: document.getElementById('cap-device').value,
+    save_dir: document.getElementById('cap-savedir').value,
+    frame_width: parseInt(document.getElementById('cap-width').value),
+    frame_height: parseInt(document.getElementById('cap-height').value),
+    relay_id: parseInt(document.getElementById('cap-relay').value),
+  };
+
+  fetch('/capture/start', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(params),
+  }).then(r => r.json()).then(data => {
+    if (!data.ok) { toast(data.error, 'err'); return; }
+    toast('Capture started (PID ' + data.pid + ')', 'ok');
+    setCapRunning(true);
+    startCaptureStream();
+  }).catch(() => toast('Failed to start capture', 'err'));
+}
+
+function captureStop() {
+  fetch('/capture/stop', { method: 'POST' }).then(r => r.json()).then(data => {
+    if (data.ok) toast('Capture stopped', 'ok');
+    else toast(data.error, 'err');
+  });
+}
+
+function setCapRunning(running) {
+  document.getElementById('btn-cap-start').disabled = running;
+  document.getElementById('btn-cap-stop').disabled = !running;
+  setBadge('capture-badge', running ? 'running' : 'idle');
+}
+
+function startCaptureStream() {
+  if (captureES) captureES.close();
+  captureES = new EventSource('/capture/logs');
+
+  captureES.onmessage = (e) => {
+    appendLog('capture-log', JSON.parse(e.data));
+    refreshDatasetCount();
+  };
+
+  captureES.addEventListener('done', () => {
+    doneLine('capture-log', 'process finished');
+    setCapRunning(false);
+    captureES.close();
+    captureES = null;
+    refreshDatasetCount();
+  });
+
+  captureES.onerror = () => {
+    setCapRunning(false);
+  };
+}
+
+// =========================================================
+// ODM
+// =========================================================
+let odmES = null;
+let odmUUID = null;
+let odmPoller = null;
+
+function odmStart() {
+  const params = {
+    odm_input: document.getElementById('odm-input').value,
+    odm_output: document.getElementById('odm-output').value,
+    node_host: document.getElementById('odm-host').value,
+    node_port: parseInt(document.getElementById('odm-port').value),
+  };
+
+  fetch('/odm/start', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(params),
+  }).then(r => r.json()).then(data => {
+    if (!data.ok) { toast(data.error, 'err'); return; }
+    toast('ODM started (PID ' + data.pid + ')', 'ok');
+    setOdmRunning(true);
+    startOdmStream();
+  }).catch(() => toast('Failed to start ODM', 'err'));
+}
+
+function odmStop() {
+  fetch('/odm/stop', { method: 'POST' }).then(r => r.json()).then(data => {
+    if (data.ok) toast('ODM stopped', 'ok');
+    else toast(data.error, 'err');
+  });
+  stopOdmPoller();
+}
+
+function setOdmRunning(running) {
+  document.getElementById('btn-odm-start').disabled = running;
+  document.getElementById('btn-odm-stop').disabled = !running;
+  setBadge('odm-badge', running ? 'running' : 'idle');
+  document.getElementById('odm-progress-wrap').classList.toggle('visible', running);
+}
+
+function startOdmStream() {
+  if (odmES) odmES.close();
+  odmES = new EventSource('/odm/logs');
+
+  odmES.onmessage = (e) => {
+    const line = JSON.parse(e.data);
+    appendLog('odm-log', line);
+
+    // Extract UUID from log output "UUID: xxxx"
+    const m = line.match(/UUID:\s*([0-9a-f-]{36})/i);
+    if (m) {
+      odmUUID = m[1];
+      startOdmPoller();
+    }
+  };
+
+  odmES.addEventListener('done', () => {
+    doneLine('odm-log', 'process finished');
+    setOdmRunning(false);
+    odmES.close();
+    odmES = null;
+    stopOdmPoller();
+  });
+
+  odmES.onerror = () => {
+    setOdmRunning(false);
+    stopOdmPoller();
+  };
+}
+
+function startOdmPoller() {
+  if (odmPoller) return;
+  odmPoller = setInterval(pollOdmStatus, 2000);
+}
+
+function stopOdmPoller() {
+  if (odmPoller) { clearInterval(odmPoller); odmPoller = null; }
+}
+
+function pollOdmStatus() {
+  if (!odmUUID) return;
+  const host = document.getElementById('odm-host').value;
+  const port = document.getElementById('odm-port').value;
+  fetch(`/odm/node-status?uuid=${odmUUID}&host=${host}&port=${port}`)
+    .then(r => r.json())
+    .then(data => {
+      const progress = data.progress || 0;
+      const code = data.status && data.status.code;
+      const labels = { 10: 'Queued', 20: 'Running', 30: 'Failed', 40: 'Completed', 50: 'Canceled' };
+      const status = labels[code] || '—';
+
+      document.getElementById('odm-progress-fill').style.width = progress + '%';
+      document.getElementById('odm-progress-pct').textContent = progress.toFixed(1) + '%';
+      document.getElementById('odm-progress-status').textContent = status;
+
+      if (code === 40) { setBadge('odm-badge', 'idle'); stopOdmPoller(); }
+      if (code === 30) { setBadge('odm-badge', 'error'); stopOdmPoller(); }
+    })
+    .catch(() => {});
+}
+
+// =========================================================
+// DATASET COUNT
+// =========================================================
+function refreshDatasetCount() {
+  fetch('/dataset/count').then(r => r.json()).then(d => {
+    document.getElementById('img-count').textContent = d.count;
+  }).catch(() => {});
+}
+
+// =========================================================
+// POLL STATUS ON LOAD (in case page was refreshed mid-run)
+// =========================================================
+function pollCaptureStatus() {
+  fetch('/capture/status').then(r => r.json()).then(d => {
+    if (d.running) { setCapRunning(true); startCaptureStream(); }
+  });
+}
+
+function pollOdmInitStatus() {
+  fetch('/odm/status').then(r => r.json()).then(d => {
+    if (d.running) { setOdmRunning(true); startOdmStream(); }
+  });
+}
+
+// =========================================================
+// INIT
+// =========================================================
+refreshDatasetCount();
+pollCaptureStatus();
+pollOdmInitStatus();
+setInterval(refreshDatasetCount, 5000);
+</script>
+
+</body>
+</html>

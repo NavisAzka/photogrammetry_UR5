@@ -1,0 +1,33 @@
+services:
+
+  persepsi:
+    build: .
+    ports:
+      - "12345:12345"
+    volumes:
+      - ./datasets:/app/datasets      # captured images
+      - ./output:/app/output          # ODM reconstruction output
+    devices:
+      # Camera passthrough — set CAMERA_DEVICE in .env
+      # Run: ls /dev/video* or v4l2-ctl --list-devices to find your device
+      - "${CAMERA_DEVICE:-/dev/video0}:${CAMERA_DEVICE:-/dev/video0}"
+    group_add:
+      - video                         # grants access to /dev/video*
+    environment:
+      # NodeODM connection (uses service name as hostname inside compose network)
+      - NODE_HOST=nodeodm
+      - NODE_PORT=3000
+    depends_on:
+      - nodeodm
+    restart: unless-stopped
+
+  nodeodm:
+    image: opendronemap/nodeodm:latest
+    ports:
+      - "3000:3000"                   # expose for direct API access if needed
+    volumes:
+      - nodeodm_data:/var/www/data    # NodeODM task files
+    restart: unless-stopped
+
+volumes:
+  nodeodm_data:
