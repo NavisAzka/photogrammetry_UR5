@@ -1,0 +1,969 @@
+[INFO]    Initializing ODM 3.5.6 - Mon May 18 13:42:08  2026
+[INFO]    ==============
+[INFO]    3d_tiles: False
+[INFO]    align: None
+[INFO]    auto_boundary: False
+[INFO]    auto_boundary_distance: 0
+[INFO]    bg_removal: True
+[INFO]    boundary: {}
+[INFO]    build_overviews: False
+[INFO]    camera_lens: auto
+[INFO]    cameras: {}
+[INFO]    cog: True
+[INFO]    copy_to: None
+[INFO]    crop: 3
+[INFO]    dem_decimation: 1
+[INFO]    dem_euclidean_map: False
+[INFO]    dem_gapfill_steps: 3
+[INFO]    dem_resolution: 5
+[INFO]    dsm: False
+[INFO]    dtm: False
+[INFO]    end_with: odm_postprocess
+[INFO]    fast_orthophoto: False
+[INFO]    feature_quality: high
+[INFO]    feature_type: dspsift
+[INFO]    force_gps: False
+[INFO]    gcp: None
+[INFO]    geo: None
+[INFO]    gltf: True
+[INFO]    gps_accuracy: 3
+[INFO]    gps_z_offset: 0
+[INFO]    ignore_gsd: True
+[INFO]    matcher_neighbors: 0
+[INFO]    matcher_order: 0
+[INFO]    matcher_type: flann
+[INFO]    max_concurrency: 4
+[INFO]    merge: all
+[INFO]    mesh_octree_depth: 11
+[INFO]    mesh_size: 200000
+[INFO]    min_num_features: 16000
+[INFO]    name: fb703f30-e525-49f4-b4ab-4ce2560137ca
+[INFO]    no_gpu: False
+[INFO]    optimize_disk_space: False
+[INFO]    orthophoto_compression: DEFLATE
+[INFO]    orthophoto_cutline: False
+[INFO]    orthophoto_kmz: False
+[INFO]    orthophoto_no_tiled: False
+[INFO]    orthophoto_png: False
+[INFO]    orthophoto_resolution: 5
+[INFO]    pc_classify: False
+[INFO]    pc_copc: False
+[INFO]    pc_csv: False
+[INFO]    pc_ept: True
+[INFO]    pc_filter: 5
+[INFO]    pc_las: False
+[INFO]    pc_quality: medium
+[INFO]    pc_rectify: False
+[INFO]    pc_sample: 0
+[INFO]    pc_skip_geometric: False
+[INFO]    primary_band: auto
+[INFO]    project_path: /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca
+[INFO]    radiometric_calibration: none
+[INFO]    rerun: None
+[INFO]    rerun_all: False
+[INFO]    rerun_from: None
+[INFO]    rolling_shutter: False
+[INFO]    rolling_shutter_readout: 0
+[INFO]    sfm_algorithm: incremental
+[INFO]    sfm_no_partial: False
+[INFO]    skip_3dmodel: False
+[INFO]    skip_band_alignment: False
+[INFO]    skip_orthophoto: False
+[INFO]    skip_report: False
+[INFO]    sky_removal: False
+[INFO]    sm_cluster: None
+[INFO]    sm_no_align: False
+[INFO]    smrf_scalar: 1.25
+[INFO]    smrf_slope: 0.15
+[INFO]    smrf_threshold: 0.5
+[INFO]    smrf_window: 18.0
+[INFO]    split: 999999
+[INFO]    split_image_groups: None
+[INFO]    split_overlap: 150
+[INFO]    texturing_keep_unseen_faces: False
+[INFO]    texturing_single_material: False
+[INFO]    texturing_skip_global_seam_leveling: False
+[INFO]    tiles: False
+[INFO]    use_3dmesh: True
+[INFO]    use_exif: False
+[INFO]    use_fixed_camera_params: False
+[INFO]    use_hybrid_bundle_adjustment: False
+[INFO]    video_limit: 500
+[INFO]    video_resolution: 4000
+[INFO]    ==============
+[INFO]    Running dataset stage
+[INFO]    Loading dataset from: /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/images
+[INFO]    Loading 14 images
+[INFO]    Automatically generating background masks for 14 images
+[INFO]     ?> Using provider CPUExecutionProvider
+[INFO]     -> Loading the model
+[INFO]    Wrote frame_000065_mask.png
+[INFO]    Wrote frame_000072_mask.png
+[INFO]    Wrote frame_000073_mask.png
+[INFO]    Wrote frame_000061_mask.png
+[INFO]    Wrote frame_000070_mask.png
+[INFO]    Wrote frame_000064_mask.png
+[INFO]    Wrote frame_000067_mask.png
+[INFO]    Wrote frame_000068_mask.png
+[INFO]    Wrote frame_000071_mask.png
+[INFO]    Wrote frame_000063_mask.png
+[INFO]    Wrote frame_000066_mask.png
+[INFO]    Wrote frame_000069_mask.png
+[INFO]    Wrote frame_000074_mask.png
+[INFO]    Wrote frame_000062_mask.png
+[INFO]    Background masks generation completed!
+[INFO]    Wrote images database: /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/images.json
+[INFO]    Found 14 usable images
+[WARNING] GPS position not available for frame_000073.jpg
+[WARNING] GPS position not available for frame_000065.jpg
+[WARNING] GPS position not available for frame_000072.jpg
+[WARNING] GPS position not available for frame_000061.jpg
+[WARNING] GPS position not available for frame_000070.jpg
+[WARNING] GPS position not available for frame_000064.jpg
+[WARNING] GPS position not available for frame_000067.jpg
+[WARNING] GPS position not available for frame_000068.jpg
+[WARNING] GPS position not available for frame_000071.jpg
+[WARNING] GPS position not available for frame_000063.jpg
+[WARNING] GPS position not available for frame_000066.jpg
+[WARNING] GPS position not available for frame_000069.jpg
+[WARNING] GPS position not available for frame_000074.jpg
+[WARNING] GPS position not available for frame_000062.jpg
+[WARNING] Could not generate coordinates file. The orthophoto will not be georeferenced.
+[INFO]    Finished dataset stage
+[INFO]    Running split stage
+[INFO]    Normal dataset, will process all at once.
+[INFO]    Finished split stage
+[INFO]    Running merge stage
+[INFO]    Normal dataset, nothing to merge.
+[INFO]    Finished merge stage
+[INFO]    Running opensfm stage
+[INFO]    Found 14 image masks
+[INFO]    Maximum photo dimensions: 1920px
+[INFO]    Photo dimensions for feature extraction: 960px
+[INFO]    ['use_exif_size: no', 'flann_algorithm: KDTREE', 'feature_process_size: 960', 'feature_min_frames: 16000', 'processes: 4', 'matching_gps_neighbors: 0', 'matching_gps_distance: 0', 'matching_graph_rounds: 50', 'optimize_camera_parameters: yes', 'reconstruction_algorithm: incremental', 'undistorted_image_format: tif', 'bundle_outlier_filtering_type: AUTO', 'sift_peak_threshold: 0.066', 'align_orientation_prior: vertical', 'triangulation_type: ROBUST', 'retriangulation_ratio: 2', 'matcher_type: FLANN', 'feature_type: DSPSIFT', 'align_method: orientation_prior', 'local_bundle_radius: 0']
+[INFO]    running "/code/SuperBuild/install/bin/opensfm/bin/opensfm" detect_features "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/opensfm"
+2026-05-18 13:42:27,401 INFO: Planning to use 11684.7703125 MB of RAM for both processing queue and parallel processing.
+2026-05-18 13:42:27,402 INFO: Scale-space expected size of a single image : 20.76416015625 MB
+2026-05-18 13:42:27,402 INFO: Expecting to queue at most 200 images while parallel processing of 4 images.
+2026-05-18 13:42:27,405 INFO: Reading data for image frame_000073.jpg (queue-size=0)
+2026-05-18 13:42:27,405 INFO: Reading data for image frame_000068.jpg (queue-size=0)
+2026-05-18 13:42:27,447 INFO: Reading data for image frame_000065.jpg (queue-size=1)
+2026-05-18 13:42:27,447 INFO: Extracting ROOT_DSPSIFT features for image frame_000073.jpg
+2026-05-18 13:42:27,448 INFO: Reading data for image frame_000071.jpg (queue-size=1)
+2026-05-18 13:42:27,449 INFO: Extracting ROOT_DSPSIFT features for image frame_000068.jpg
+2026-05-18 13:42:27,488 INFO: Reading data for image frame_000072.jpg (queue-size=1)
+2026-05-18 13:42:27,489 INFO: Reading data for image frame_000063.jpg (queue-size=2)
+2026-05-18 13:42:27,529 INFO: Reading data for image frame_000061.jpg (queue-size=3)
+2026-05-18 13:42:27,530 INFO: Reading data for image frame_000066.jpg (queue-size=4)
+2026-05-18 13:42:27,566 INFO: Reading data for image frame_000069.jpg (queue-size=5)
+2026-05-18 13:42:27,567 INFO: Reading data for image frame_000070.jpg (queue-size=6)
+2026-05-18 13:42:27,607 INFO: Reading data for image frame_000074.jpg (queue-size=7)
+2026-05-18 13:42:27,613 INFO: Reading data for image frame_000064.jpg (queue-size=8)
+2026-05-18 13:42:27,645 INFO: Reading data for image frame_000062.jpg (queue-size=9)
+2026-05-18 13:42:27,663 INFO: Reading data for image frame_000067.jpg (queue-size=10)
+2026-05-18 13:42:27,684 INFO: Extracting ROOT_DSPSIFT features for image frame_000065.jpg
+2026-05-18 13:42:27,717 INFO: Finished reading images
+2026-05-18 13:42:27,717 INFO: Extracting ROOT_DSPSIFT features for image frame_000071.jpg
+2026-05-18 13:42:29,563 DEBUG: Found 1764 points in 2.11126971244812s
+2026-05-18 13:42:29,639 DEBUG: Found 1968 points in 2.188255548477173s
+2026-05-18 13:42:29,727 INFO: Extracting ROOT_DSPSIFT features for image frame_000072.jpg
+2026-05-18 13:42:29,755 DEBUG: Found 1750 points in 2.067112922668457s
+2026-05-18 13:42:29,801 INFO: Extracting ROOT_DSPSIFT features for image frame_000063.jpg
+2026-05-18 13:42:29,916 INFO: Extracting ROOT_DSPSIFT features for image frame_000066.jpg
+2026-05-18 13:42:30,153 DEBUG: Found 2002 points in 2.4287309646606445s
+2026-05-18 13:42:30,340 INFO: Extracting ROOT_DSPSIFT features for image frame_000061.jpg
+2026-05-18 13:42:31,934 DEBUG: Found 1850 points in 2.131072521209717s
+2026-05-18 13:42:31,994 DEBUG: Found 2099 points in 2.2647197246551514s
+2026-05-18 13:42:32,098 INFO: Extracting ROOT_DSPSIFT features for image frame_000069.jpg
+2026-05-18 13:42:32,157 INFO: Extracting ROOT_DSPSIFT features for image frame_000070.jpg
+2026-05-18 13:42:32,256 DEBUG: Found 1826 points in 2.338024616241455s
+2026-05-18 13:42:32,407 INFO: Extracting ROOT_DSPSIFT features for image frame_000074.jpg
+2026-05-18 13:42:32,444 DEBUG: Found 1808 points in 2.101027250289917s
+2026-05-18 13:42:32,653 INFO: Extracting ROOT_DSPSIFT features for image frame_000064.jpg
+2026-05-18 13:42:34,091 DEBUG: Found 1826 points in 1.991166114807129s
+2026-05-18 13:42:34,234 INFO: Extracting ROOT_DSPSIFT features for image frame_000062.jpg
+2026-05-18 13:42:34,646 DEBUG: Found 2327 points in 2.487056016921997s
+2026-05-18 13:42:34,659 DEBUG: Found 1952 points in 2.250032424926758s
+2026-05-18 13:42:34,840 INFO: Extracting ROOT_DSPSIFT features for image frame_000067.jpg
+2026-05-18 13:42:34,865 DEBUG: Found 1853 points in 2.209744930267334s
+2026-05-18 13:42:35,738 DEBUG: Found 1848 points in 1.5020976066589355s
+2026-05-18 13:42:36,079 DEBUG: Found 1805 points in 1.2368946075439453s
+[INFO]    running "/code/SuperBuild/install/bin/opensfm/bin/opensfm" match_features "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/opensfm"
+2026-05-18 13:42:36,885 INFO: Matching 91 image pairs
+2026-05-18 13:42:36,895 INFO: Computing pair matching with 4 processes
+2026-05-18 13:42:36,969 DEBUG: Matching frame_000064.jpg and frame_000073.jpg.  Matcher: FLANN (symmetric) T-desc: 0.069 T-robust: 0.001 T-total: 0.070 Matches: 597 Robust: 549 Success: True
+2026-05-18 13:42:36,970 DEBUG: Matching frame_000062.jpg and frame_000070.jpg.  Matcher: FLANN (symmetric) T-desc: 0.070 T-robust: 0.002 T-total: 0.072 Matches: 628 Robust: 587 Success: True
+2026-05-18 13:42:36,975 DEBUG: Matching frame_000063.jpg and frame_000069.jpg.  Matcher: FLANN (symmetric) T-desc: 0.075 T-robust: 0.002 T-total: 0.077 Matches: 676 Robust: 629 Success: True
+2026-05-18 13:42:36,986 DEBUG: Matching frame_000071.jpg and frame_000072.jpg.  Matcher: FLANN (symmetric) T-desc: 0.086 T-robust: 0.001 T-total: 0.088 Matches: 934 Robust: 880 Success: True
+2026-05-18 13:42:37,009 DEBUG: Matching frame_000062.jpg and frame_000064.jpg.  Matcher: FLANN (symmetric) T-desc: 0.022 T-robust: 0.001 T-total: 0.023 Matches: 747 Robust: 686 Success: True
+2026-05-18 13:42:37,013 DEBUG: Matching frame_000071.jpg and frame_000067.jpg.  Matcher: FLANN (symmetric) T-desc: 0.042 T-robust: 0.002 T-total: 0.044 Matches: 705 Robust: 663 Success: True
+2026-05-18 13:42:37,020 DEBUG: Matching frame_000071.jpg and frame_000068.jpg.  Matcher: FLANN (symmetric) T-desc: 0.043 T-robust: 0.001 T-total: 0.045 Matches: 713 Robust: 663 Success: True
+2026-05-18 13:42:37,029 DEBUG: Matching frame_000072.jpg and frame_000074.jpg.  Matcher: FLANN (symmetric) T-desc: 0.056 T-robust: 0.002 T-total: 0.058 Matches: 774 Robust: 722 Success: True
+2026-05-18 13:42:37,039 DEBUG: Matching frame_000063.jpg and frame_000064.jpg.  Matcher: FLANN (symmetric) T-desc: 0.023 T-robust: 0.001 T-total: 0.025 Matches: 885 Robust: 860 Success: True
+2026-05-18 13:42:37,050 DEBUG: Matching frame_000067.jpg and frame_000064.jpg.  Matcher: FLANN (symmetric) T-desc: 0.027 T-robust: 0.001 T-total: 0.028 Matches: 769 Robust: 720 Success: True
+2026-05-18 13:42:37,053 DEBUG: Matching frame_000063.jpg and frame_000065.jpg.  Matcher: FLANN (symmetric) T-desc: 0.042 T-robust: 0.001 T-total: 0.043 Matches: 785 Robust: 720 Success: True
+2026-05-18 13:42:37,070 DEBUG: Matching frame_000061.jpg and frame_000065.jpg.  Matcher: FLANN (symmetric) T-desc: 0.030 T-robust: 0.001 T-total: 0.031 Matches: 732 Robust: 654 Success: True
+2026-05-18 13:42:37,072 DEBUG: Matching frame_000061.jpg and frame_000064.jpg.  Matcher: FLANN (symmetric) T-desc: 0.039 T-robust: 0.003 T-total: 0.042 Matches: 748 Robust: 659 Success: True
+2026-05-18 13:42:37,077 DEBUG: Matching frame_000062.jpg and frame_000067.jpg.  Matcher: FLANN (symmetric) T-desc: 0.022 T-robust: 0.001 T-total: 0.023 Matches: 658 Robust: 594 Success: True
+2026-05-18 13:42:37,092 DEBUG: Matching frame_000065.jpg and frame_000066.jpg.  Matcher: FLANN (symmetric) T-desc: 0.041 T-robust: 0.001 T-total: 0.042 Matches: 984 Robust: 939 Success: True
+2026-05-18 13:42:37,097 DEBUG: Matching frame_000071.jpg and frame_000065.jpg.  Matcher: FLANN (symmetric) T-desc: 0.024 T-robust: 0.001 T-total: 0.025 Matches: 673 Robust: 605 Success: True
+2026-05-18 13:42:37,100 DEBUG: Matching frame_000071.jpg and frame_000069.jpg.  Matcher: FLANN (symmetric) T-desc: 0.027 T-robust: 0.001 T-total: 0.028 Matches: 726 Robust: 691 Success: True
+2026-05-18 13:42:37,102 DEBUG: Matching frame_000065.jpg and frame_000074.jpg.  Matcher: FLANN (symmetric) T-desc: 0.024 T-robust: 0.001 T-total: 0.025 Matches: 595 Robust: 544 Success: True
+2026-05-18 13:42:37,122 DEBUG: Matching frame_000069.jpg and frame_000066.jpg.  Matcher: FLANN (symmetric) T-desc: 0.023 T-robust: 0.001 T-total: 0.025 Matches: 729 Robust: 665 Success: True
+2026-05-18 13:42:37,133 DEBUG: Matching frame_000065.jpg and frame_000073.jpg.  Matcher: FLANN (symmetric) T-desc: 0.031 T-robust: 0.001 T-total: 0.032 Matches: 610 Robust: 569 Success: True
+2026-05-18 13:42:37,135 DEBUG: Matching frame_000069.jpg and frame_000074.jpg.  Matcher: FLANN (symmetric) T-desc: 0.041 T-robust: 0.001 T-total: 0.043 Matches: 639 Robust: 604 Success: True
+2026-05-18 13:42:37,136 DEBUG: Matching frame_000064.jpg and frame_000072.jpg.  Matcher: FLANN (symmetric) T-desc: 0.031 T-robust: 0.003 T-total: 0.035 Matches: 616 Robust: 575 Success: True
+2026-05-18 13:42:37,157 DEBUG: Matching frame_000068.jpg and frame_000066.jpg.  Matcher: FLANN (symmetric) T-desc: 0.032 T-robust: 0.001 T-total: 0.034 Matches: 793 Robust: 744 Success: True
+2026-05-18 13:42:37,159 DEBUG: Matching frame_000069.jpg and frame_000073.jpg.  Matcher: FLANN (symmetric) T-desc: 0.025 T-robust: 0.001 T-total: 0.026 Matches: 659 Robust: 614 Success: True
+2026-05-18 13:42:37,178 DEBUG: Matching frame_000071.jpg and frame_000064.jpg.  Matcher: FLANN (symmetric) T-desc: 0.041 T-robust: 0.001 T-total: 0.043 Matches: 669 Robust: 618 Success: True
+2026-05-18 13:42:37,182 DEBUG: Matching frame_000065.jpg and frame_000062.jpg.  Matcher: FLANN (symmetric) T-desc: 0.041 T-robust: 0.002 T-total: 0.044 Matches: 702 Robust: 653 Success: True
+2026-05-18 13:42:37,188 DEBUG: Matching frame_000069.jpg and frame_000070.jpg.  Matcher: FLANN (symmetric) T-desc: 0.027 T-robust: 0.001 T-total: 0.028 Matches: 752 Robust: 709 Success: True
+2026-05-18 13:42:37,200 DEBUG: Matching frame_000071.jpg and frame_000063.jpg.  Matcher: FLANN (symmetric) T-desc: 0.042 T-robust: 0.001 T-total: 0.043 Matches: 637 Robust: 588 Success: True
+2026-05-18 13:42:37,209 DEBUG: Matching frame_000068.jpg and frame_000074.jpg.  Matcher: FLANN (symmetric) T-desc: 0.025 T-robust: 0.001 T-total: 0.026 Matches: 637 Robust: 609 Success: True
+2026-05-18 13:42:37,211 DEBUG: Matching frame_000069.jpg and frame_000062.jpg.  Matcher: FLANN (symmetric) T-desc: 0.030 T-robust: 0.001 T-total: 0.031 Matches: 622 Robust: 577 Success: True
+2026-05-18 13:42:37,213 DEBUG: Matching frame_000073.jpg and frame_000066.jpg.  Matcher: FLANN (symmetric) T-desc: 0.024 T-robust: 0.001 T-total: 0.025 Matches: 613 Robust: 568 Success: True
+2026-05-18 13:42:37,229 DEBUG: Matching frame_000068.jpg and frame_000073.jpg.  Matcher: FLANN (symmetric) T-desc: 0.027 T-robust: 0.001 T-total: 0.029 Matches: 643 Robust: 615 Success: True
+2026-05-18 13:42:37,237 DEBUG: Matching frame_000069.jpg and frame_000061.jpg.  Matcher: FLANN (symmetric) T-desc: 0.024 T-robust: 0.002 T-total: 0.026 Matches: 619 Robust: 571 Success: True
+2026-05-18 13:42:37,240 DEBUG: Matching frame_000062.jpg and frame_000066.jpg.  Matcher: FLANN (symmetric) T-desc: 0.023 T-robust: 0.002 T-total: 0.025 Matches: 705 Robust: 649 Success: True
+2026-05-18 13:42:37,241 DEBUG: Matching frame_000073.jpg and frame_000072.jpg.  Matcher: FLANN (symmetric) T-desc: 0.026 T-robust: 0.003 T-total: 0.032 Matches: 847 Robust: 799 Success: True
+2026-05-18 13:42:37,256 DEBUG: Matching frame_000073.jpg and frame_000074.jpg.  Matcher: FLANN (symmetric) T-desc: 0.026 T-robust: 0.001 T-total: 0.027 Matches: 885 Robust: 844 Success: True
+2026-05-18 13:42:37,264 DEBUG: Matching frame_000069.jpg and frame_000067.jpg.  Matcher: FLANN (symmetric) T-desc: 0.023 T-robust: 0.001 T-total: 0.024 Matches: 778 Robust: 712 Success: True
+2026-05-18 13:42:37,267 DEBUG: Matching frame_000069.jpg and frame_000072.jpg.  Matcher: FLANN (symmetric) T-desc: 0.028 T-robust: 0.001 T-total: 0.029 Matches: 686 Robust: 606 Success: True
+2026-05-18 13:42:37,271 DEBUG: Matching frame_000065.jpg and frame_000072.jpg.  Matcher: FLANN (symmetric) T-desc: 0.027 T-robust: 0.001 T-total: 0.028 Matches: 636 Robust: 557 Success: True
+2026-05-18 13:42:37,282 DEBUG: Matching frame_000069.jpg and frame_000068.jpg.  Matcher: FLANN (symmetric) T-desc: 0.024 T-robust: 0.001 T-total: 0.025 Matches: 969 Robust: 938 Success: True
+2026-05-18 13:42:37,290 DEBUG: Matching frame_000063.jpg and frame_000066.jpg.  Matcher: FLANN (symmetric) T-desc: 0.023 T-robust: 0.001 T-total: 0.025 Matches: 753 Robust: 702 Success: True
+2026-05-18 13:42:37,297 DEBUG: Matching frame_000068.jpg and frame_000062.jpg.  Matcher: FLANN (symmetric) T-desc: 0.024 T-robust: 0.001 T-total: 0.026 Matches: 640 Robust: 587 Success: True
+2026-05-18 13:42:37,299 DEBUG: Matching frame_000063.jpg and frame_000062.jpg.  Matcher: FLANN (symmetric) T-desc: 0.030 T-robust: 0.001 T-total: 0.031 Matches: 860 Robust: 821 Success: True
+2026-05-18 13:42:37,306 DEBUG: Matching frame_000062.jpg and frame_000074.jpg.  Matcher: FLANN (symmetric) T-desc: 0.023 T-robust: 0.001 T-total: 0.024 Matches: 536 Robust: 482 Success: True
+2026-05-18 13:42:37,315 DEBUG: Matching frame_000062.jpg and frame_000073.jpg.  Matcher: FLANN (symmetric) T-desc: 0.024 T-robust: 0.001 T-total: 0.025 Matches: 569 Robust: 502 Success: True
+2026-05-18 13:42:37,326 DEBUG: Matching frame_000061.jpg and frame_000062.jpg.  Matcher: FLANN (symmetric) T-desc: 0.028 T-robust: 0.001 T-total: 0.029 Matches: 947 Robust: 920 Success: True
+2026-05-18 13:42:37,328 DEBUG: Matching frame_000068.jpg and frame_000061.jpg.  Matcher: FLANN (symmetric) T-desc: 0.028 T-robust: 0.001 T-total: 0.029 Matches: 649 Robust: 605 Success: True
+2026-05-18 13:42:37,334 DEBUG: Matching frame_000070.jpg and frame_000066.jpg.  Matcher: FLANN (symmetric) T-desc: 0.026 T-robust: 0.001 T-total: 0.027 Matches: 704 Robust: 644 Success: True
+2026-05-18 13:42:37,344 DEBUG: Matching frame_000065.jpg and frame_000070.jpg.  Matcher: FLANN (symmetric) T-desc: 0.026 T-robust: 0.001 T-total: 0.028 Matches: 683 Robust: 616 Success: True
+2026-05-18 13:42:37,358 DEBUG: Matching frame_000061.jpg and frame_000066.jpg.  Matcher: FLANN (symmetric) T-desc: 0.022 T-robust: 0.002 T-total: 0.024 Matches: 693 Robust: 593 Success: True
+2026-05-18 13:42:37,359 DEBUG: Matching frame_000063.jpg and frame_000074.jpg.  Matcher: FLANN (symmetric) T-desc: 0.028 T-robust: 0.002 T-total: 0.030 Matches: 556 Robust: 458 Success: True
+2026-05-18 13:42:37,361 DEBUG: Matching frame_000070.jpg and frame_000074.jpg.  Matcher: FLANN (symmetric) T-desc: 0.032 T-robust: 0.001 T-total: 0.033 Matches: 695 Robust: 647 Success: True
+2026-05-18 13:42:37,372 DEBUG: Matching frame_000063.jpg and frame_000073.jpg.  Matcher: FLANN (symmetric) T-desc: 0.026 T-robust: 0.001 T-total: 0.027 Matches: 582 Robust: 541 Success: True
+2026-05-18 13:42:37,386 DEBUG: Matching frame_000067.jpg and frame_000073.jpg.  Matcher: FLANN (symmetric) T-desc: 0.024 T-robust: 0.001 T-total: 0.025 Matches: 631 Robust: 574 Success: True
+2026-05-18 13:42:37,389 DEBUG: Matching frame_000061.jpg and frame_000074.jpg.  Matcher: FLANN (symmetric) T-desc: 0.028 T-robust: 0.002 T-total: 0.031 Matches: 531 Robust: 468 Success: True
+2026-05-18 13:42:37,397 DEBUG: Matching frame_000070.jpg and frame_000072.jpg.  Matcher: FLANN (symmetric) T-desc: 0.037 T-robust: 0.001 T-total: 0.038 Matches: 755 Robust: 702 Success: True
+2026-05-18 13:42:37,400 DEBUG: Matching frame_000070.jpg and frame_000073.jpg.  Matcher: FLANN (symmetric) T-desc: 0.026 T-robust: 0.001 T-total: 0.027 Matches: 697 Robust: 653 Success: True
+2026-05-18 13:42:37,429 DEBUG: Matching frame_000071.jpg and frame_000066.jpg.  Matcher: FLANN (symmetric) T-desc: 0.025 T-robust: 0.004 T-total: 0.029 Matches: 688 Robust: 608 Success: True
+2026-05-18 13:42:37,433 DEBUG: Matching frame_000069.jpg and frame_000065.jpg.  Matcher: FLANN (symmetric) T-desc: 0.041 T-robust: 0.002 T-total: 0.043 Matches: 724 Robust: 663 Success: True
+2026-05-18 13:42:37,440 DEBUG: Matching frame_000065.jpg and frame_000064.jpg.  Matcher: FLANN (symmetric) T-desc: 0.046 T-robust: 0.003 T-total: 0.051 Matches: 900 Robust: 875 Success: True
+2026-05-18 13:42:37,442 DEBUG: Matching frame_000068.jpg and frame_000072.jpg.  Matcher: FLANN (symmetric) T-desc: 0.044 T-robust: 0.001 T-total: 0.045 Matches: 664 Robust: 597 Success: True
+2026-05-18 13:42:37,461 DEBUG: Matching frame_000069.jpg and frame_000064.jpg.  Matcher: FLANN (symmetric) T-desc: 0.030 T-robust: 0.002 T-total: 0.032 Matches: 694 Robust: 648 Success: True
+2026-05-18 13:42:37,476 DEBUG: Matching frame_000071.jpg and frame_000073.jpg.  Matcher: FLANN (symmetric) T-desc: 0.030 T-robust: 0.002 T-total: 0.033 Matches: 785 Robust: 746 Success: True
+2026-05-18 13:42:37,478 DEBUG: Matching frame_000071.jpg and frame_000074.jpg.  Matcher: FLANN (symmetric) T-desc: 0.041 T-robust: 0.003 T-total: 0.044 Matches: 765 Robust: 705 Success: True
+2026-05-18 13:42:37,492 DEBUG: Matching frame_000065.jpg and frame_000067.jpg.  Matcher: FLANN (symmetric) T-desc: 0.028 T-robust: 0.002 T-total: 0.031 Matches: 795 Robust: 754 Success: True
+2026-05-18 13:42:37,493 DEBUG: Matching frame_000061.jpg and frame_000073.jpg.  Matcher: FLANN (symmetric) T-desc: 0.050 T-robust: 0.001 T-total: 0.053 Matches: 536 Robust: 495 Success: True
+2026-05-18 13:42:37,502 DEBUG: Matching frame_000063.jpg and frame_000061.jpg.  Matcher: FLANN (symmetric) T-desc: 0.024 T-robust: 0.001 T-total: 0.025 Matches: 796 Robust: 727 Success: True
+2026-05-18 13:42:37,508 DEBUG: Matching frame_000063.jpg and frame_000070.jpg.  Matcher: FLANN (symmetric) T-desc: 0.029 T-robust: 0.001 T-total: 0.030 Matches: 665 Robust: 609 Success: True
+2026-05-18 13:42:37,519 DEBUG: Matching frame_000068.jpg and frame_000065.jpg.  Matcher: FLANN (symmetric) T-desc: 0.024 T-robust: 0.001 T-total: 0.026 Matches: 735 Robust: 671 Success: True
+2026-05-18 13:42:37,527 DEBUG: Matching frame_000062.jpg and frame_000072.jpg.  Matcher: FLANN (symmetric) T-desc: 0.032 T-robust: 0.002 T-total: 0.034 Matches: 569 Robust: 493 Success: True
+2026-05-18 13:42:37,529 DEBUG: Matching frame_000067.jpg and frame_000066.jpg.  Matcher: FLANN (symmetric) T-desc: 0.024 T-robust: 0.002 T-total: 0.027 Matches: 879 Robust: 840 Success: True
+2026-05-18 13:42:37,538 DEBUG: Matching frame_000063.jpg and frame_000072.jpg.  Matcher: FLANN (symmetric) T-desc: 0.028 T-robust: 0.001 T-total: 0.029 Matches: 586 Robust: 531 Success: True
+2026-05-18 13:42:37,551 DEBUG: Matching frame_000061.jpg and frame_000070.jpg.  Matcher: FLANN (symmetric) T-desc: 0.030 T-robust: 0.001 T-total: 0.031 Matches: 600 Robust: 552 Success: True
+2026-05-18 13:42:37,554 DEBUG: Matching frame_000063.jpg and frame_000067.jpg.  Matcher: FLANN (symmetric) T-desc: 0.024 T-robust: 0.001 T-total: 0.025 Matches: 702 Robust: 656 Success: True
+2026-05-18 13:42:37,560 DEBUG: Matching frame_000068.jpg and frame_000070.jpg.  Matcher: FLANN (symmetric) T-desc: 0.031 T-robust: 0.001 T-total: 0.032 Matches: 744 Robust: 704 Success: True
+2026-05-18 13:42:37,568 DEBUG: Matching frame_000067.jpg and frame_000074.jpg.  Matcher: FLANN (symmetric) T-desc: 0.028 T-robust: 0.001 T-total: 0.029 Matches: 603 Robust: 544 Success: True
+2026-05-18 13:42:37,583 DEBUG: Matching frame_000063.jpg and frame_000068.jpg.  Matcher: FLANN (symmetric) T-desc: 0.026 T-robust: 0.001 T-total: 0.028 Matches: 687 Robust: 610 Success: True
+2026-05-18 13:42:37,584 DEBUG: Matching frame_000070.jpg and frame_000064.jpg.  Matcher: FLANN (symmetric) T-desc: 0.031 T-robust: 0.002 T-total: 0.033 Matches: 680 Robust: 597 Success: True
+2026-05-18 13:42:37,591 DEBUG: Matching frame_000068.jpg and frame_000064.jpg.  Matcher: FLANN (symmetric) T-desc: 0.029 T-robust: 0.001 T-total: 0.030 Matches: 736 Robust: 673 Success: True
+2026-05-18 13:42:37,601 DEBUG: Matching frame_000070.jpg and frame_000067.jpg.  Matcher: FLANN (symmetric) T-desc: 0.031 T-robust: 0.001 T-total: 0.032 Matches: 720 Robust: 654 Success: True
+2026-05-18 13:42:37,610 DEBUG: Matching frame_000064.jpg and frame_000066.jpg.  Matcher: FLANN (symmetric) T-desc: 0.025 T-robust: 0.001 T-total: 0.026 Matches: 833 Robust: 792 Success: True
+2026-05-18 13:42:37,613 DEBUG: Matching frame_000067.jpg and frame_000072.jpg.  Matcher: FLANN (symmetric) T-desc: 0.027 T-robust: 0.001 T-total: 0.029 Matches: 639 Robust: 594 Success: True
+2026-05-18 13:42:37,628 DEBUG: Matching frame_000071.jpg and frame_000070.jpg.  Matcher: FLANN (symmetric) T-desc: 0.035 T-robust: 0.001 T-total: 0.037 Matches: 808 Robust: 768 Success: True
+2026-05-18 13:42:37,630 DEBUG: Matching frame_000071.jpg and frame_000062.jpg.  Matcher: FLANN (symmetric) T-desc: 0.028 T-robust: 0.001 T-total: 0.029 Matches: 593 Robust: 554 Success: True
+2026-05-18 13:42:37,639 DEBUG: Matching frame_000061.jpg and frame_000067.jpg.  Matcher: FLANN (symmetric) T-desc: 0.024 T-robust: 0.001 T-total: 0.025 Matches: 646 Robust: 593 Success: True
+2026-05-18 13:42:37,641 DEBUG: Matching frame_000071.jpg and frame_000061.jpg.  Matcher: FLANN (symmetric) T-desc: 0.030 T-robust: 0.001 T-total: 0.031 Matches: 585 Robust: 505 Success: True
+2026-05-18 13:42:37,658 DEBUG: Matching frame_000072.jpg and frame_000066.jpg.  Matcher: FLANN (symmetric) T-desc: 0.028 T-robust: 0.001 T-total: 0.029 Matches: 636 Robust: 579 Success: True
+2026-05-18 13:42:37,661 DEBUG: Matching frame_000074.jpg and frame_000066.jpg.  Matcher: FLANN (symmetric) T-desc: 0.030 T-robust: 0.001 T-total: 0.031 Matches: 589 Robust: 531 Success: True
+2026-05-18 13:42:37,667 DEBUG: Matching frame_000064.jpg and frame_000074.jpg.  Matcher: FLANN (symmetric) T-desc: 0.027 T-robust: 0.001 T-total: 0.028 Matches: 579 Robust: 533 Success: True
+2026-05-18 13:42:37,669 DEBUG: Matching frame_000068.jpg and frame_000067.jpg.  Matcher: FLANN (symmetric) T-desc: 0.025 T-robust: 0.002 T-total: 0.027 Matches: 836 Robust: 799 Success: True
+2026-05-18 13:42:37,683 DEBUG: Matching frame_000061.jpg and frame_000072.jpg.  Matcher: FLANN (symmetric) T-desc: 0.024 T-robust: 0.001 T-total: 0.025 Matches: 547 Robust: 488 Success: True
+2026-05-18 13:42:37,684 INFO: Matched 91 pairs (brown-brown: 91) in 0.7989932130003581 seconds (0.008780148362627816 seconds/pair).
+[INFO]    running "/code/SuperBuild/install/bin/opensfm/bin/opensfm" create_tracks "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/opensfm"
+2026-05-18 13:42:38,957 INFO: reading features
+2026-05-18 13:42:39,042 DEBUG: Merging features onto tracks
+2026-05-18 13:42:39,220 DEBUG: Good tracks: 3166
+[INFO]    running "/code/SuperBuild/install/bin/opensfm/bin/opensfm" reconstruct "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/opensfm"
+2026-05-18 13:42:40,018 INFO: Starting incremental reconstruction
+2026-05-18 13:42:40,176 INFO: Starting reconstruction with frame_000064.jpg and frame_000070.jpg
+2026-05-18 13:42:40,188 INFO: Two-view 5-points reconstruction inliers (transposed=False): 601 / 628
+2026-05-18 13:42:40,250 INFO: Triangulated: 204
+2026-05-18 13:42:40,319 DEBUG: Ceres Solver Report: Iterations: 13, Initial cost: 5.913531e+01, Final cost: 3.165668e+01, Termination: CONVERGENCE
+2026-05-18 13:42:40,322 INFO: Removed outliers: 11
+2026-05-18 13:42:40,327 INFO: -------------------------------------------------------
+2026-05-18 13:42:40,330 INFO: frame_000063.jpg resection inliers: 144 / 154
+2026-05-18 13:42:40,332 INFO: Adding frame_000063.jpg to the reconstruction
+2026-05-18 13:42:40,399 INFO: Re-triangulating
+2026-05-18 13:42:40,499 DEBUG: Ceres Solver Report: Iterations: 42, Initial cost: 2.646708e+02, Final cost: 5.971475e+01, Termination: CONVERGENCE
+2026-05-18 13:42:40,586 DEBUG: Ceres Solver Report: Iterations: 13, Initial cost: 4.874083e+01, Final cost: 3.724476e+01, Termination: CONVERGENCE
+2026-05-18 13:42:40,589 INFO: Removed outliers: 11
+2026-05-18 13:42:40,590 INFO: -------------------------------------------------------
+2026-05-18 13:42:40,593 INFO: frame_000065.jpg resection inliers: 166 / 171
+2026-05-18 13:42:40,594 INFO: Adding frame_000065.jpg to the reconstruction
+2026-05-18 13:42:40,663 INFO: Re-triangulating
+2026-05-18 13:42:40,700 DEBUG: Ceres Solver Report: Iterations: 16, Initial cost: 2.418667e+02, Final cost: 6.962714e+01, Termination: CONVERGENCE
+2026-05-18 13:42:40,829 DEBUG: Ceres Solver Report: Iterations: 13, Initial cost: 7.328309e+01, Final cost: 5.372986e+01, Termination: CONVERGENCE
+2026-05-18 13:42:40,832 INFO: Removed outliers: 16
+2026-05-18 13:42:40,833 INFO: -------------------------------------------------------
+2026-05-18 13:42:40,837 INFO: frame_000067.jpg resection inliers: 166 / 185
+2026-05-18 13:42:40,839 INFO: Adding frame_000067.jpg to the reconstruction
+2026-05-18 13:42:40,935 DEBUG: Ceres Solver Report: Iterations: 14, Initial cost: 1.023331e+02, Final cost: 7.889474e+01, Termination: CONVERGENCE
+2026-05-18 13:42:40,940 INFO: Removed outliers: 15
+2026-05-18 13:42:40,941 INFO: -------------------------------------------------------
+2026-05-18 13:42:40,947 INFO: frame_000068.jpg resection inliers: 211 / 236
+2026-05-18 13:42:40,949 INFO: Adding frame_000068.jpg to the reconstruction
+2026-05-18 13:42:41,020 INFO: -------------------------------------------------------
+2026-05-18 13:42:41,023 INFO: frame_000066.jpg resection inliers: 213 / 256
+2026-05-18 13:42:41,024 INFO: Adding frame_000066.jpg to the reconstruction
+2026-05-18 13:42:41,184 DEBUG: Ceres Solver Report: Iterations: 23, Initial cost: 1.575626e+02, Final cost: 1.235890e+02, Termination: CONVERGENCE
+2026-05-18 13:42:41,190 INFO: Removed outliers: 13
+2026-05-18 13:42:41,191 INFO: -------------------------------------------------------
+2026-05-18 13:42:41,197 INFO: frame_000071.jpg resection inliers: 225 / 263
+2026-05-18 13:42:41,199 INFO: Adding frame_000071.jpg to the reconstruction
+2026-05-18 13:42:41,278 INFO: -------------------------------------------------------
+2026-05-18 13:42:41,281 INFO: frame_000069.jpg resection inliers: 221 / 258
+2026-05-18 13:42:41,283 INFO: Adding frame_000069.jpg to the reconstruction
+2026-05-18 13:42:41,379 INFO: Re-triangulating
+2026-05-18 13:42:41,510 DEBUG: Ceres Solver Report: Iterations: 21, Initial cost: 2.070364e+02, Final cost: 1.738706e+02, Termination: CONVERGENCE
+2026-05-18 13:42:41,836 DEBUG: Ceres Solver Report: Iterations: 17, Initial cost: 3.142607e+02, Final cost: 2.135213e+02, Termination: CONVERGENCE
+2026-05-18 13:42:41,844 INFO: Removed outliers: 36
+2026-05-18 13:42:41,845 INFO: -------------------------------------------------------
+2026-05-18 13:42:41,850 INFO: frame_000061.jpg resection inliers: 186 / 237
+2026-05-18 13:42:41,852 INFO: Adding frame_000061.jpg to the reconstruction
+2026-05-18 13:42:41,948 INFO: -------------------------------------------------------
+2026-05-18 13:42:41,953 INFO: frame_000062.jpg resection inliers: 217 / 257
+2026-05-18 13:42:41,956 INFO: Adding frame_000062.jpg to the reconstruction
+2026-05-18 13:42:42,059 INFO: -------------------------------------------------------
+2026-05-18 13:42:42,062 INFO: frame_000072.jpg resection inliers: 213 / 251
+2026-05-18 13:42:42,064 INFO: Adding frame_000072.jpg to the reconstruction
+2026-05-18 13:42:42,219 DEBUG: Ceres Solver Report: Iterations: 11, Initial cost: 3.339576e+02, Final cost: 2.723317e+02, Termination: CONVERGENCE
+2026-05-18 13:42:42,228 INFO: Removed outliers: 18
+2026-05-18 13:42:42,229 INFO: -------------------------------------------------------
+2026-05-18 13:42:42,232 INFO: frame_000073.jpg resection inliers: 220 / 257
+2026-05-18 13:42:42,234 INFO: Adding frame_000073.jpg to the reconstruction
+2026-05-18 13:42:42,331 INFO: -------------------------------------------------------
+2026-05-18 13:42:42,335 INFO: frame_000074.jpg resection inliers: 228 / 272
+2026-05-18 13:42:42,337 INFO: Adding frame_000074.jpg to the reconstruction
+2026-05-18 13:42:42,438 INFO: -------------------------------------------------------
+2026-05-18 13:42:42,562 DEBUG: Ceres Solver Report: Iterations: 16, Initial cost: 3.980023e+02, Final cost: 3.507737e+02, Termination: CONVERGENCE
+2026-05-18 13:42:42,572 INFO: Removed outliers: 11
+2026-05-18 13:42:42,578 INFO: Reconstruction 0: 14 images, 714 points
+2026-05-18 13:42:42,578 INFO: 1 partial reconstructions in total.
+[INFO]    Export reconstruction stats
+[INFO]    running "/code/SuperBuild/install/bin/opensfm/bin/opensfm" compute_statistics --diagram_max_points 100000 "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/opensfm"
+2026-05-18 13:42:44,741 DEBUG: locator: <matplotlib.colorbar._ColorbarAutoLocator object at 0x7d9a1b92d460>
+2026-05-18 13:42:44,742 DEBUG: Using auto colorbar locator <matplotlib.colorbar._ColorbarAutoLocator object at 0x7d9a1b92d460> on colorbar
+2026-05-18 13:42:44,742 DEBUG: Setting pcolormesh
+2026-05-18 13:42:45,216 DEBUG: locator: <matplotlib.colorbar._ColorbarAutoLocator object at 0x7d9a1b9abbb0>
+2026-05-18 13:42:45,216 DEBUG: Using auto colorbar locator <matplotlib.colorbar._ColorbarAutoLocator object at 0x7d9a1b9abbb0> on colorbar
+2026-05-18 13:42:45,216 DEBUG: Setting pcolormesh
+[WARNING] Will skip exporting /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/opensfm/reconstruction.geocoords.json
+[INFO]    Updating /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/opensfm/config.yaml
+[INFO]    undistorted_image_max_size: 1920
+[INFO]    Undistorting /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/opensfm ...
+2026-05-18 13:42:47,331 DEBUG: Undistorting image frame_000074.jpg
+2026-05-18 13:42:47,331 DEBUG: Undistorting image frame_000064.jpg
+2026-05-18 13:42:47,332 DEBUG: Undistorting image frame_000065.jpg
+2026-05-18 13:42:47,332 DEBUG: Undistorting image frame_000072.jpg
+2026-05-18 13:42:47,651 DEBUG: Undistorting image frame_000070.jpg
+2026-05-18 13:42:47,884 DEBUG: Undistorting image frame_000063.jpg
+2026-05-18 13:42:47,904 DEBUG: Undistorting image frame_000062.jpg
+2026-05-18 13:42:47,911 DEBUG: Undistorting image frame_000067.jpg
+2026-05-18 13:42:48,000 DEBUG: Undistorting image frame_000071.jpg
+2026-05-18 13:42:48,251 DEBUG: Undistorting image frame_000061.jpg
+2026-05-18 13:42:48,253 DEBUG: Undistorting image frame_000066.jpg
+2026-05-18 13:42:48,256 DEBUG: Undistorting image frame_000068.jpg
+2026-05-18 13:42:48,349 DEBUG: Undistorting image frame_000073.jpg
+2026-05-18 13:42:48,597 DEBUG: Undistorting image frame_000069.jpg
+[INFO]    running "/code/SuperBuild/install/bin/opensfm/bin/opensfm" export_visualsfm --points "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/opensfm"
+[INFO]    Finished opensfm stage
+[INFO]    Running openmvs stage
+[INFO]    running "/code/SuperBuild/install/bin/opensfm/bin/opensfm" export_openmvs "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/opensfm"
+[INFO]    Depthmap resolution set to: 480px
+[INFO]    Running dense reconstruction. This might take a while.
+[INFO]    Estimating depthmaps
+[INFO]    running "/code/SuperBuild/install/bin/OpenMVS/DensifyPointCloud" "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/opensfm/undistorted/openmvs/scene.mvs" --resolution-level 2 --dense-config-file "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/opensfm/undistorted/openmvs/Densify.ini" --max-resolution 1920 --min-resolution 640 --max-threads 4 --number-views-fuse 2 --sub-resolution-levels 2 --archive-type 3 -w "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/opensfm/undistorted/openmvs/depthmaps" -v 0 --cuda-device -2 --ignore-mask-label 0
+13:42:50 [App     ] OpenMVS x64 v2.2.0
+13:42:50 [App     ] Build date: Jul  8 2025, 22:57:56
+13:42:50 [App     ] CPU: 11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz (4 cores)
+13:42:50 [App     ] RAM: 23.17GB Physical Memory 0B Virtual Memory
+13:42:50 [App     ] OS: Linux 6.12.10-76061203-generic (x86_64)
+13:42:50 [App     ] Disk:
+13:42:50 [App     ] SSE & AVX compatible CPU & OS detected
+13:42:50 [App     ] Command line: DensifyPointCloud /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/opensfm/undistorted/openmvs/scene.mvs --resolution-level 2 --dense-config-file /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/opensfm/undistorted/openmvs/Densify.ini --max-resolution 1920 --min-resolution 640 --max-threads 4 --number-views-fuse 2 --sub-resolution-levels 2 --archive-type 3 -w /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/opensfm/undistorted/openmvs/depthmaps -v 0 --cuda-device -2 --ignore-mask-label 0
+13:42:50 [App     ] The camera directions mean is unbalanced; the scene will be considered unbounded (no ROI)
+13:42:50 [App     ] Preparing images for dense reconstruction completed: 14 images (246ms)
+13:42:50 [App     ] Selecting images for dense reconstruction completed: 14 images (1ms)
+
+Estimated depth-maps 1 (7.14%, 2s, ETA 32s)...
+Estimated depth-maps 2 (14.29%, 4s, ETA 28s)...
+Estimated depth-maps 3 (21.43%, 6s, ETA 24s)...
+Estimated depth-maps 4 (28.57%, 9s, ETA 22s)...
+Estimated depth-maps 5 (35.71%, 11s, ETA 21s)...
+Estimated depth-maps 6 (42.86%, 14s, ETA 18s)...
+Estimated depth-maps 7 (50.00%, 16s, ETA 16s)...
+Estimated depth-maps 8 (57.14%, 18s, ETA 13s)...
+Estimated depth-maps 9 (64.29%, 20s, ETA 11s)...
+Estimated depth-maps 10 (71.43%, 23s, ETA 9s)...
+Estimated depth-maps 11 (78.57%, 25s, ETA 6s)...
+Estimated depth-maps 12 (85.71%, 27s, ETA 4s)...
+Estimated depth-maps 13 (92.86%, 30s, ETA 2s)...
+Estimated depth-maps 14 (100.00%, 32s, ETA 0ms)...
+Estimated depth-maps 14 (100%, 32s451ms)
+
+Geometric-consistent estimated depth-maps 1 (7.14%, 631ms, ETA 8s)...
+Geometric-consistent estimated depth-maps 2 (14.29%, 1s, ETA 7s)...
+Geometric-consistent estimated depth-maps 3 (21.43%, 1s, ETA 6s)...
+Geometric-consistent estimated depth-maps 4 (28.57%, 2s, ETA 6s)...
+Geometric-consistent estimated depth-maps 5 (35.71%, 3s, ETA 5s)...
+Geometric-consistent estimated depth-maps 6 (42.86%, 3s, ETA 4s)...
+Geometric-consistent estimated depth-maps 7 (50.00%, 4s, ETA 4s)...
+Geometric-consistent estimated depth-maps 8 (57.14%, 4s, ETA 3s)...
+Geometric-consistent estimated depth-maps 9 (64.29%, 5s, ETA 3s)...
+Geometric-consistent estimated depth-maps 10 (71.43%, 6s, ETA 2s)...
+Geometric-consistent estimated depth-maps 11 (78.57%, 6s, ETA 1s)...
+Geometric-consistent estimated depth-maps 12 (85.71%, 7s, ETA 1s)...
+Geometric-consistent estimated depth-maps 13 (92.86%, 8s, ETA 628ms)...
+Geometric-consistent estimated depth-maps 14 (100.00%, 8s, ETA 0ms)...
+Geometric-consistent estimated depth-maps 14 (100%, 8s732ms)
+
+Geometric-consistent estimated depth-maps 1 (7.14%, 671ms, ETA 8s)...
+Geometric-consistent estimated depth-maps 2 (14.29%, 1s, ETA 7s)...
+Geometric-consistent estimated depth-maps 3 (21.43%, 1s, ETA 6s)...
+Geometric-consistent estimated depth-maps 4 (28.57%, 2s, ETA 6s)...
+Geometric-consistent estimated depth-maps 5 (35.71%, 3s, ETA 5s)...
+Geometric-consistent estimated depth-maps 6 (42.86%, 3s, ETA 5s)...
+Geometric-consistent estimated depth-maps 7 (50.00%, 4s, ETA 4s)...
+Geometric-consistent estimated depth-maps 8 (57.14%, 5s, ETA 3s)...
+Geometric-consistent estimated depth-maps 9 (64.29%, 5s, ETA 3s)...
+Geometric-consistent estimated depth-maps 10 (71.43%, 6s, ETA 2s)...
+Geometric-consistent estimated depth-maps 11 (78.57%, 6s, ETA 1s)...
+Geometric-consistent estimated depth-maps 12 (85.71%, 7s, ETA 1s)...
+Geometric-consistent estimated depth-maps 13 (92.86%, 8s, ETA 633ms)...
+Geometric-consistent estimated depth-maps 14 (100.00%, 8s, ETA 0ms)...
+Geometric-consistent estimated depth-maps 14 (100%, 8s783ms)
+
+Filtered depth-maps 1 (7.14%, 395ms, ETA 5s)...
+Filtered depth-maps 4 (28.57%, 521ms, ETA 1s)...
+Filtered depth-maps 7 (50.00%, 642ms, ETA 642ms)...
+Filtered depth-maps 10 (71.43%, 751ms, ETA 300ms)...
+Filtered depth-maps 13 (92.86%, 896ms, ETA 68ms)...
+Filtered depth-maps 14 (100%, 950ms)
+
+Fused depth-maps 1 (7.14%, 106ms, ETA 1s)...
+Fused depth-maps 11 (78.57%, 208ms, ETA 56ms)...
+Fused depth-maps 14 (100%, 219ms)
+13:43:41 [App     ] Densifying point-cloud completed: 215092 points (51s488ms)
+13:43:42 [App     ] MEMORYINFO: {
+13:43:42 [App     ] 	VmPeak:	 1084660 kB
+13:43:42 [App     ] 	VmSize:	 1084660 kB
+13:43:42 [App     ] } ENDINFO
+[INFO]    running "/code/SuperBuild/install/bin/OpenMVS/DensifyPointCloud" --filter-point-cloud -20 -i "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/opensfm/undistorted/openmvs/scene_dense.mvs" -v 0 --cuda-device -2 --ignore-mask-label 0
+13:43:42 [App     ] OpenMVS x64 v2.2.0
+13:43:42 [App     ] Build date: Jul  8 2025, 22:57:56
+13:43:42 [App     ] CPU: 11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz (4 cores)
+13:43:42 [App     ] RAM: 23.17GB Physical Memory 0B Virtual Memory
+13:43:42 [App     ] OS: Linux 6.12.10-76061203-generic (x86_64)
+13:43:42 [App     ] Disk:
+13:43:42 [App     ] SSE & AVX compatible CPU & OS detected
+13:43:42 [App     ] Command line: DensifyPointCloud --filter-point-cloud -20 -i /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/opensfm/undistorted/openmvs/scene_dense.mvs -v 0 --cuda-device -2 --ignore-mask-label 0
+13:43:42 [App     ] The camera directions mean is unbalanced; the scene will be considered unbounded (no ROI)
+
+Point visibility checks 20709 (9.63%, 100ms, ETA 938ms)...
+Point visibility checks 40953 (19.04%, 200ms, ETA 850ms)...
+Point visibility checks 59957 (27.88%, 300ms, ETA 776ms)...
+Point visibility checks 79589 (37.00%, 400ms, ETA 681ms)...
+Point visibility checks 102240 (47.53%, 500ms, ETA 551ms)...
+Point visibility checks 122131 (56.78%, 600ms, ETA 456ms)...
+Point visibility checks 141235 (65.66%, 700ms, ETA 366ms)...
+Point visibility checks 155300 (72.20%, 800ms, ETA 308ms)...
+Point visibility checks 168268 (78.23%, 900ms, ETA 250ms)...
+Point visibility checks 178446 (82.96%, 1s, ETA 205ms)...
+Point visibility checks 189529 (88.12%, 1s, ETA 148ms)...
+Point visibility checks 202273 (94.04%, 1s, ETA 76ms)...
+Point visibility checks 209645 (97.47%, 1s, ETA 33ms)...
+Point visibility checks 214279 (99.62%, 1s, ETA 5ms)...
+Point visibility checks 215092 (100%, 1s416ms)
+13:43:43 [App     ] MEMORYINFO: {
+13:43:43 [App     ] 	VmPeak:	  316692 kB
+13:43:43 [App     ] 	VmSize:	  258584 kB
+13:43:43 [App     ] } ENDINFO
+[INFO]    Finished openmvs stage
+[INFO]    Running odm_filterpoints stage
+[INFO]    Filtering /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/opensfm/undistorted/openmvs/scene_dense_dense_filtered.ply (statistical, meanK 16, standard deviation 5)
+[INFO]    running "/code/SuperBuild/install/bin/FPCFilter" --input "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/opensfm/undistorted/openmvs/scene_dense_dense_filtered.ply" --output "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_filterpoints/point_cloud.ply" --concurrency 4 --meank 16 --std 5 --stats "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_filterpoints/point_cloud_stats.json"
+*** FPCFilter - v0.2 ***
+
+?> Parameters:
+input = /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/opensfm/undistorted/openmvs/scene_dense_dense_filtered.ply
+output = /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_filterpoints/point_cloud.ply
+stats = /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_filterpoints/point_cloud_stats.json
+std = 5
+meanK = 16
+boundary = auto
+concurrency = 4
+verbose = no
+
+-> Setting num_threads to 4
+
+?> Skipping crop
+
+?> Skipping sampling
+
+-> Statistical filtering
+
+-> Spacing estimation completed (0.01 meters)
+
+?> Done in 0.2614s
+
+-> Writing output
+
+?> Done in 0.02634s
+
+?> Pipeline done in 0.2878s
+
+[INFO]    Finished odm_filterpoints stage
+[INFO]    Running odm_meshing stage
+[INFO]    Writing ODM Mesh file in: /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_meshing/odm_mesh.ply
+[INFO]    running "/code/SuperBuild/install/bin/PoissonRecon" --in "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_filterpoints/point_cloud.ply" --out "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_meshing/odm_mesh.dirty.ply" --depth 11 --pointWeight 4.0 --samplesPerNode 1.0 --threads 3 --bType 2 --linearFit
+[INFO]    running "/code/SuperBuild/install/bin/OpenMVS/ReconstructMesh" -i "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_meshing/odm_mesh.dirty.ply" -o "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_meshing/odm_mesh.ply" --archive-type 3 --remove-spikes 0 --remove-spurious 20 --smooth 0 --target-face-num 400000 -v 0
+13:43:57 [App     ] OpenMVS x64 v2.2.0
+13:43:57 [App     ] Build date: Jul  8 2025, 22:57:56
+13:43:57 [App     ] CPU: 11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz (4 cores)
+13:43:57 [App     ] RAM: 23.17GB Physical Memory 0B Virtual Memory
+13:43:57 [App     ] OS: Linux 6.12.10-76061203-generic (x86_64)
+13:43:57 [App     ] Disk:
+13:43:57 [App     ] SSE & AVX compatible CPU & OS detected
+13:43:57 [App     ] Command line: ReconstructMesh -i /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_meshing/odm_mesh.dirty.ply -o /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_meshing/odm_mesh.ply --archive-type 3 --remove-spikes 0 --remove-spurious 20 --smooth 0 --target-face-num 400000 -v 0
+
+Decimated faces 29004 (1.86%, 1s, ETA 1m)...
+Decimated faces 58608 (3.76%, 1s, ETA 33s)...
+Decimated faces 86888 (5.57%, 1s, ETA 23s)...
+Decimated faces 111766 (7.17%, 1s, ETA 19s)...
+Decimated faces 132426 (8.50%, 1s, ETA 17s)...
+Decimated faces 150668 (9.67%, 1s, ETA 15s)...
+Decimated faces 174776 (11.21%, 1s, ETA 14s)...
+Decimated faces 195903 (12.57%, 1s, ETA 13s)...
+Decimated faces 215883 (13.85%, 1s, ETA 12s)...
+Decimated faces 234745 (15.06%, 2s, ETA 11s)...
+Decimated faces 253330 (16.25%, 2s, ETA 11s)...
+Decimated faces 271440 (17.41%, 2s, ETA 10s)...
+Decimated faces 284950 (18.28%, 2s, ETA 10s)...
+Decimated faces 302650 (19.42%, 2s, ETA 10s)...
+Decimated faces 319798 (20.52%, 2s, ETA 10s)...
+Decimated faces 338034 (21.69%, 2s, ETA 9s)...
+Decimated faces 355734 (22.82%, 2s, ETA 9s)...
+Decimated faces 372166 (23.88%, 2s, ETA 9s)...
+Decimated faces 388082 (24.90%, 2s, ETA 9s)...
+Decimated faces 403150 (25.86%, 3s, ETA 8s)...
+Decimated faces 418514 (26.85%, 3s, ETA 8s)...
+Decimated faces 433320 (27.80%, 3s, ETA 8s)...
+Decimated faces 447928 (28.74%, 3s, ETA 8s)...
+Decimated faces 462486 (29.67%, 3s, ETA 8s)...
+Decimated faces 476764 (30.59%, 3s, ETA 8s)...
+Decimated faces 491868 (31.56%, 3s, ETA 8s)...
+Decimated faces 506776 (32.51%, 3s, ETA 7s)...
+Decimated faces 520474 (33.39%, 3s, ETA 7s)...
+Decimated faces 533750 (34.24%, 3s, ETA 7s)...
+Decimated faces 546551 (35.06%, 4s, ETA 7s)...
+Decimated faces 559233 (35.88%, 4s, ETA 7s)...
+Decimated faces 572107 (36.70%, 4s, ETA 7s)...
+Decimated faces 584570 (37.50%, 4s, ETA 7s)...
+Decimated faces 596674 (38.28%, 4s, ETA 7s)...
+Decimated faces 608927 (39.07%, 4s, ETA 7s)...
+Decimated faces 621733 (39.89%, 4s, ETA 7s)...
+Decimated faces 634682 (40.72%, 4s, ETA 6s)...
+Decimated faces 646406 (41.47%, 4s, ETA 6s)...
+Decimated faces 657570 (42.19%, 4s, ETA 6s)...
+Decimated faces 668743 (42.90%, 5s, ETA 6s)...
+Decimated faces 679947 (43.62%, 5s, ETA 6s)...
+Decimated faces 680605 (43.66%, 5s, ETA 7s)...
+Decimated faces 702884 (45.09%, 5s, ETA 7s)...
+Decimated faces 724480 (46.48%, 6s, ETA 6s)...
+Decimated faces 745696 (47.84%, 6s, ETA 6s)...
+Decimated faces 767634 (49.25%, 6s, ETA 6s)...
+Decimated faces 788608 (50.59%, 6s, ETA 6s)...
+Decimated faces 808918 (51.90%, 6s, ETA 5s)...
+Decimated faces 828440 (53.15%, 6s, ETA 5s)...
+Decimated faces 848326 (54.42%, 6s, ETA 5s)...
+Decimated faces 868400 (55.71%, 6s, ETA 5s)...
+Decimated faces 887658 (56.95%, 6s, ETA 5s)...
+Decimated faces 904996 (58.06%, 6s, ETA 5s)...
+Decimated faces 922320 (59.17%, 7s, ETA 4s)...
+Decimated faces 938530 (60.21%, 7s, ETA 4s)...
+Decimated faces 954798 (61.25%, 7s, ETA 4s)...
+Decimated faces 970508 (62.26%, 7s, ETA 4s)...
+Decimated faces 985872 (63.25%, 7s, ETA 4s)...
+Decimated faces 1001442 (64.25%, 7s, ETA 4s)...
+Decimated faces 1017474 (65.28%, 7s, ETA 4s)...
+Decimated faces 1033782 (66.32%, 7s, ETA 3s)...
+Decimated faces 1049418 (67.32%, 7s, ETA 3s)...
+Decimated faces 1063654 (68.24%, 7s, ETA 3s)...
+Decimated faces 1077554 (69.13%, 8s, ETA 3s)...
+Decimated faces 1091196 (70.00%, 8s, ETA 3s)...
+Decimated faces 1104818 (70.88%, 8s, ETA 3s)...
+Decimated faces 1118190 (71.74%, 8s, ETA 3s)...
+Decimated faces 1131396 (72.58%, 8s, ETA 3s)...
+Decimated faces 1144252 (73.41%, 8s, ETA 3s)...
+Decimated faces 1157676 (74.27%, 8s, ETA 2s)...
+Decimated faces 1170999 (75.12%, 8s, ETA 2s)...
+Decimated faces 1184275 (75.98%, 8s, ETA 2s)...
+Decimated faces 1191721 (76.45%, 9s, ETA 2s)...
+Decimated faces 1212119 (77.76%, 9s, ETA 2s)...
+Decimated faces 1232959 (79.10%, 9s, ETA 2s)...
+Decimated faces 1253759 (80.43%, 9s, ETA 2s)...
+Decimated faces 1275275 (81.81%, 9s, ETA 2s)...
+Decimated faces 1295994 (83.14%, 9s, ETA 1s)...
+Decimated faces 1314426 (84.33%, 9s, ETA 1s)...
+Decimated faces 1332400 (85.48%, 10s, ETA 1s)...
+Decimated faces 1349402 (86.57%, 10s, ETA 1s)...
+Decimated faces 1366425 (87.66%, 10s, ETA 1s)...
+Decimated faces 1382965 (88.72%, 10s, ETA 1s)...
+Decimated faces 1398897 (89.75%, 10s, ETA 1s)...
+Decimated faces 1414031 (90.72%, 10s, ETA 1s)...
+Decimated faces 1429592 (91.71%, 10s, ETA 959ms)...
+Decimated faces 1445266 (92.72%, 10s, ETA 842ms)...
+Decimated faces 1460048 (93.67%, 10s, ETA 731ms)...
+Decimated faces 1473054 (94.50%, 10s, ETA 635ms)...
+Decimated faces 1485450 (95.30%, 11s, ETA 543ms)...
+Decimated faces 1487592 (95.44%, 11s, ETA 540ms)...
+Decimated faces 1507669 (96.72%, 11s, ETA 386ms)...
+Decimated faces 1527208 (97.98%, 11s, ETA 237ms)...
+Decimated faces 1546584 (99.22%, 11s, ETA 91ms)...
+Decimated faces 1558745 (100%, 11s660ms)
+13:44:13 [App     ] MEMORYINFO: {
+13:44:13 [App     ] 	VmPeak:	  858052 kB
+13:44:13 [App     ] 	VmSize:	  148436 kB
+13:44:13 [App     ] } ENDINFO
+[INFO]    Finished odm_meshing stage
+[INFO]    Running mvs_texturing stage
+[INFO]    Writing MVS Textured file in: /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_texturing/odm_textured_model_geo.obj
+[INFO]    running "/code/SuperBuild/install/bin/texrecon" "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/opensfm/undistorted/reconstruction.nvm" "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_meshing/odm_mesh.ply" "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_texturing/odm_textured_model_geo" -d gmi -o gauss_clamping -t none --no_intermediate_results     --max_texture_size=8192
+/code/SuperBuild/install/bin/texrecon (built on Jul  8 2025, 22:56:51)
+Load and prepare mesh:
+Reading PLY: 193691 verts... 387706 faces... done.
+Generating texture views:
+NVM: Loading file...
+NVM: Number of views: 14
+NVM: Number of features: 714
+
+
+Loading 100%... done. (Took 0.134s)
+Building adjacency graph:
+
+
+Adding edges 100%... done. (Took 0.451s)
+581514 total edges.
+View selection:
+Building BVH from 387706 faces... done. (Took: 264 ms)
+
+
+Calculating face qualities 100%... done. (Took 2.827s)
+
+
+Postprocessing face infos 100%... done. (Took 0.081s)
+Maximum quality of a face within an image: 6.40496
+Clamping qualities to 1.42845 within normalization.
+Optimizing:
+Time[s]	Energy
+0	385779
+3	380899
+3	378077
+4	376486
+4	375751
+4	375321
+5	375066
+6	374798
+6	374714
+6	374617
+6	374543
+7	374487
+7	374435
+174901 faces have not been seen
+Took: 11.324s
+Generating texture patches:
+Running... done. (Took 0.391s)
+9256 texture patches.
+Running global seam leveling:
+Create matrices for optimization...  done.
+Lhs dimensionality: 148364 x 148364
+Calculating adjustments:
+Color channel 0: CG took 91 iterations. Residual is 9.82631e-05
+Color channel 2: CG took 91 iterations. Residual is 9.68859e-05
+Color channel 1: CG took 96 iterations. Residual is 8.30955e-05
+Took 0.278 seconds
+
+
+Adjusting texture patches 100%... done. (Took 0.044s)
+Running local seam leveling:
+
+
+Blending texture patches 100%... done. (Took 0.393s)
+Generating texture atlases:
+Sorting texture patches... done.
+
+Working on atlas 19 100%... done.
+Finalizing texture atlases... done. (Took: 0s)
+Building objmodel:
+Saving model... done.
+Whole texturing procedure took: 16.924s
+[INFO]    Generating glTF Binary
+[INFO]    Converting /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_texturing/odm_textured_model_geo.obj --> /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_texturing/odm_textured_model_geo.glb
+[INFO]    Loading /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_texturing/odm_textured_model_geo.obj
+[INFO]    Loading odm_textured_model_geo_material0000_map_Kd.png
+[INFO]    Loading odm_textured_model_geo_material0001_map_Kd.png
+[INFO]    Loading odm_textured_model_geo_material0002_map_Kd.png
+[INFO]    Loading odm_textured_model_geo_material0003_map_Kd.png
+[INFO]    Loading odm_textured_model_geo_material0004_map_Kd.png
+[INFO]    Loading odm_textured_model_geo_material0005_map_Kd.png
+[INFO]    Loading odm_textured_model_geo_material0006_map_Kd.png
+[INFO]    Loading odm_textured_model_geo_material0007_map_Kd.png
+[INFO]    Loading odm_textured_model_geo_material0008_map_Kd.png
+[INFO]    Loading odm_textured_model_geo_material0009_map_Kd.png
+[INFO]    Loading odm_textured_model_geo_material0010_map_Kd.png
+[INFO]    Loading odm_textured_model_geo_material0011_map_Kd.png
+[INFO]    Loading odm_textured_model_geo_material0012_map_Kd.png
+[INFO]    Loading odm_textured_model_geo_material0013_map_Kd.png
+[INFO]    Loading odm_textured_model_geo_material0014_map_Kd.png
+[INFO]    Loading odm_textured_model_geo_material0015_map_Kd.png
+[INFO]    Loading odm_textured_model_geo_material0016_map_Kd.png
+[INFO]    Loading odm_textured_model_geo_material0017_map_Kd.png
+[INFO]    Loading odm_textured_model_geo_material0018_map_Kd.png
+2026-05-18 13:44:32,505 WARNING: CPLE_NotSupported in driver JPEG does not support creation option JPEG_QUALITY
+2026-05-18 13:44:32,638 WARNING: CPLE_NotSupported in driver JPEG does not support creation option JPEG_QUALITY
+2026-05-18 13:44:32,642 WARNING: CPLE_NotSupported in driver JPEG does not support creation option JPEG_QUALITY
+2026-05-18 13:44:32,647 WARNING: CPLE_NotSupported in driver JPEG does not support creation option JPEG_QUALITY
+2026-05-18 13:44:32,651 WARNING: CPLE_NotSupported in driver JPEG does not support creation option JPEG_QUALITY
+2026-05-18 13:44:32,655 WARNING: CPLE_NotSupported in driver JPEG does not support creation option JPEG_QUALITY
+2026-05-18 13:44:32,659 WARNING: CPLE_NotSupported in driver JPEG does not support creation option JPEG_QUALITY
+2026-05-18 13:44:32,664 WARNING: CPLE_NotSupported in driver JPEG does not support creation option JPEG_QUALITY
+2026-05-18 13:44:32,668 WARNING: CPLE_NotSupported in driver JPEG does not support creation option JPEG_QUALITY
+2026-05-18 13:44:32,672 WARNING: CPLE_NotSupported in driver JPEG does not support creation option JPEG_QUALITY
+2026-05-18 13:44:32,677 WARNING: CPLE_NotSupported in driver JPEG does not support creation option JPEG_QUALITY
+2026-05-18 13:44:32,682 WARNING: CPLE_NotSupported in driver JPEG does not support creation option JPEG_QUALITY
+2026-05-18 13:44:32,686 WARNING: CPLE_NotSupported in driver JPEG does not support creation option JPEG_QUALITY
+2026-05-18 13:44:32,690 WARNING: CPLE_NotSupported in driver JPEG does not support creation option JPEG_QUALITY
+2026-05-18 13:44:32,695 WARNING: CPLE_NotSupported in driver JPEG does not support creation option JPEG_QUALITY
+2026-05-18 13:44:32,699 WARNING: CPLE_NotSupported in driver JPEG does not support creation option JPEG_QUALITY
+2026-05-18 13:44:32,703 WARNING: CPLE_NotSupported in driver JPEG does not support creation option JPEG_QUALITY
+2026-05-18 13:44:32,707 WARNING: CPLE_NotSupported in driver JPEG does not support creation option JPEG_QUALITY
+2026-05-18 13:44:32,712 WARNING: CPLE_NotSupported in driver JPEG does not support creation option JPEG_QUALITY
+[INFO]    Writing...
+[INFO]    Wrote /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_texturing/odm_textured_model_geo.glb
+[INFO]    Compressing with draco
+[INFO]    running draco_transcoder -i "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_texturing/odm_textured_model_geo.glb" -o "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_texturing/odm_textured_model_geo_compressed.glb" -qt 16 -qp 16
+Transcode	/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_texturing/odm_textured_model_geo.glb	461
+[INFO]    Finished mvs_texturing stage
+[INFO]    Running odm_georeferencing stage
+[INFO]    Converting point cloud (non-georeferenced)
+[INFO]    running pdal translate -i "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_filterpoints/point_cloud.ply" -o "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_georeferencing/odm_georeferenced_model.laz" ferry --filters.ferry.dimensions="views => UserData"
+[INFO]    Creating Entwine Point Tile output
+[INFO]    running entwine build --threads 4 --tmp "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/entwine_pointcloud-tmp" -i /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_georeferencing/odm_georeferenced_model.laz -o "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/entwine_pointcloud"
+1/1: /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_georeferencing/odm_georeferenced_model.laz
+Dimensions: [
+X:int32, Y:int32, Z:int32, Intensity:uint16, ReturnNumber:uint8,
+NumberOfReturns:uint8, ScanDirectionFlag:uint8, EdgeOfFlightLine:uint8,
+Classification:uint8, ScanAngleRank:float32, UserData:uint8,
+PointSourceId:uint16, GpsTime:float64, Red:uint16, Green:uint16, Blue:uint16
+]
+Points: 213,688
+Bounds: [(-1, -1, -6), (1, 1, -4)]
+Scale: 0.01
+SRS: none
+
+Adding 0 - /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_georeferencing/odm_georeferenced_model.laz
+Joining
+Done 0
+Saving
+Wrote 213,688 points.
+[INFO]    Finished odm_georeferencing stage
+[INFO]    Running odm_dem stage
+[WARNING] Not georeferenced, using ungeoreferenced point cloud...
+[INFO]    Create DSM: False
+[INFO]    Create DTM: False
+[INFO]    DEM input file /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_georeferencing/odm_georeferenced_model.laz found: True
+[WARNING] DEM will not be generated
+[INFO]    Finished odm_dem stage
+[INFO]    Running odm_orthophoto stage
+[INFO]    Creating GeoTIFF
+[INFO]    running "/code/SuperBuild/install/bin/odm_orthophoto" -inputFiles /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_texturing/odm_textured_model_geo.obj -logFile "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_orthophoto/odm_orthophoto_log.txt" -outputFile "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_orthophoto/odm_orthophoto_render.tif" -resolution 20.0 -verbose -outputCornerFile "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_orthophoto/odm_orthophoto_corners.txt"       --config GDAL_CACHEMAX 6730729472.0
+Reading mesh file... /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_texturing/odm_textured_model_geo.obj
+Found material0000
+Loading odm_textured_model_geo_material0000_map_Kd.png
+Found material0001
+Loading odm_textured_model_geo_material0001_map_Kd.png
+Found material0002
+Loading odm_textured_model_geo_material0002_map_Kd.png
+Found material0003
+Loading odm_textured_model_geo_material0003_map_Kd.png
+Found material0004
+Loading odm_textured_model_geo_material0004_map_Kd.png
+Found material0005
+Loading odm_textured_model_geo_material0005_map_Kd.png
+Found material0006
+Loading odm_textured_model_geo_material0006_map_Kd.png
+Found material0007
+Loading odm_textured_model_geo_material0007_map_Kd.png
+Found material0008
+Loading odm_textured_model_geo_material0008_map_Kd.png
+Found material0009
+Loading odm_textured_model_geo_material0009_map_Kd.png
+Found material0010
+Loading odm_textured_model_geo_material0010_map_Kd.png
+Found material0011
+Loading odm_textured_model_geo_material0011_map_Kd.png
+Found material0012
+Loading odm_textured_model_geo_material0012_map_Kd.png
+Found material0013
+Loading odm_textured_model_geo_material0013_map_Kd.png
+Found material0014
+Loading odm_textured_model_geo_material0014_map_Kd.png
+Found material0015
+Loading odm_textured_model_geo_material0015_map_Kd.png
+Found material0016
+Loading odm_textured_model_geo_material0016_map_Kd.png
+Found material0017
+Loading odm_textured_model_geo_material0017_map_Kd.png
+Found material0018
+Loading odm_textured_model_geo_material0018_map_Kd.png
+Mesh file read.
+
+Boundary points:
+Point 1: 0.10006 -0.667955
+Point 2: 0.10006 0.305665
+Point 3: 0.814359 0.305665
+Point 4: 0.814359 -0.667955
+
+Model bounds x : 0.10006 -> 0.814359
+Model bounds y : -0.667955 -> 0.305665
+Model area : 0.695456m2
+Model resolution, width x height : 15x20
+Translating and scaling mesh...
+Rendering the ortho photo...
+Texture channels: 3
+Texture depth: 8bit
+Rendering material0000 ... Warning: Sliver polygon found at (152445, 150294, 150295)
+Warning: Sliver polygon found at (85248, 85474, 85244)
+Warning: Sliver polygon found at (148364, 148365, 148498)
+Warning: Sliver polygon found at (149677, 148365, 149676)
+Warning: Sliver polygon found at (149679, 149676, 148364)
+Warning: Sliver polygon found at (119187, 119484, 119188)
+Warning: Sliver polygon found at (64125, 64310, 64124)
+Warning: Sliver polygon found at (64125, 64124, 64687)
+Warning: Sliver polygon found at (64125, 64127, 64310)
+Warning: Sliver polygon found at (22034, 22033, 22230)
+done
+Rendering material0001 ... done
+Rendering material0002 ... done
+Rendering material0003 ... done
+Rendering material0004 ... done
+Rendering material0005 ... Warning: Sliver polygon found at (152445, 150292, 150293)
+Warning: Sliver polygon found at (150294, 150293, 148854)
+done
+Rendering material0006 ... done
+Rendering material0007 ... done
+Rendering material0008 ... done
+Rendering material0009 ... done
+Rendering material0010 ... done
+Rendering material0011 ... done
+Rendering material0012 ... done
+Rendering material0013 ... done
+Rendering material0014 ... done
+Rendering material0015 ... done
+Rendering material0016 ... done
+Rendering material0017 ... Warning: Sliver polygon found at (148365, 148364, 149676)
+done
+Rendering material0018 ... Warning: Sliver polygon found at (152445, 150293, 150294)
+done
+... model rendered
+
+
+Writing ortho photo to /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_orthophoto/odm_orthophoto_render.tif
+Set GDAL_CACHEMAX to 6730729472
+Writing corner coordinates to /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_orthophoto/odm_orthophoto_corners.txt
+Orthophoto generation done.
+[INFO]    Adding pseudo georeferencing (raster should show up at the equator) to /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_orthophoto/odm_orthophoto_render.tif
+[INFO]    Renaming /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_orthophoto/odm_orthophoto_render.tif --> /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_orthophoto/odm_orthophoto.tif
+[INFO]    Finished odm_orthophoto stage
+[INFO]    Running odm_report stage
+[INFO]    Exporting shots.geojson
+[INFO]    Wrote /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_report/shots.geojson
+[INFO]    Copied /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/opensfm/camera_mappings.npz --> /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_report/camera_mappings.npz
+[INFO]    running pdal info --dimensions "X,Y,Z" "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_georeferencing/odm_georeferenced_model.laz" > "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_georeferencing/odm_georeferenced_model.info.json"
+[INFO]    running pdal translate -i "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_georeferencing/odm_georeferenced_model.laz" -o "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/opensfm/stats/overlap.tif" --writer gdal --writers.gdal.resolution=0.0008428571428571428 --writers.gdal.data_type=uint8_t --writers.gdal.dimension=UserData --writers.gdal.output_type=max --writers.gdal.radius=0.0011919800025716088
+[INFO]    running gdaldem color-relief "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/opensfm/stats/overlap.tif" "/code/opendm/report/overlap_color_map.txt" "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/opensfm/stats/overlap.png" -of PNG -alpha
+0...10...20...30...40...50...60...70...80...90...100 - done.
+[INFO]    running gdal_translate -of png "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_orthophoto/odm_orthophoto.tif" "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/opensfm/stats/ortho.png" -b 1 -b 2 -b 3 -b 4 -outsize 1400 0 -co WORLDFILE=YES --config GDAL_CACHEMAX 27.15%
+Input file size is 15, 20
+0...10...20...30...40...50...60...70...80...90...100 - done.
+[INFO]    Exporting report to /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_report/report.pdf
+2026-05-18 13:44:43,583 DEBUG: Final doc sections size summary:
+2026-05-18 13:44:43,584 DEBUG: - header.size: 9.0B
+2026-05-18 13:44:43,584 DEBUG: - pages.size: 3.6KiB
+2026-05-18 13:44:43,584 DEBUG: - resources.fonts.size: 199.0B
+2026-05-18 13:44:43,585 DEBUG: - resources.images.size: 1.5MiB
+2026-05-18 13:44:43,585 DEBUG: - resources.dict.size: 204.0B
+2026-05-18 13:44:43,585 DEBUG: - info.size: 55.0B
+2026-05-18 13:44:43,585 DEBUG: - catalog.size: 104.0B
+2026-05-18 13:44:43,585 DEBUG: - xref.size: 550.0B
+2026-05-18 13:44:43,585 DEBUG: - trailer.size: 67.0B
+[INFO]    Finished odm_report stage
+[INFO]    Running odm_postprocess stage
+[INFO]    Post Processing
+[INFO]    Finished odm_postprocess stage
+[INFO]    No more stages to run
+[INFO]    MMMMMMMMMMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNMMMMMMMMMMM
+[INFO]    MMMMMMdo:..---../sNMMMMMMMMMMMMMMMMMMMMMMMMMMNs/..---..:odMMMMMM
+[INFO]    MMMMy-.odNMMMMMNy/`/mMMMMMMMMMMMMMMMMMMMMMMm/`/hNMMMMMNdo.-yMMMM
+[INFO]    MMN/`sMMMMMMMMMNNMm/`yMMMMMMMMMMMMMMMMMMMMy`/mMNNMMMMMMMMNs`/MMM
+[INFO]    MM/ hMMMMMMMMNs.+MMM/ dMMMMMMMMMMMMMMMMMMh +MMM+.sNMMMMMMMMh +MM
+[INFO]    MN /MMMMMMNo/./mMMMMN :MMMMMMMMMMMMMMMMMM: NMMMMm/./oNMMMMMM: NM
+[INFO]    Mm +MMMMMN+ `/MMMMMMM`-MMMMMMMMMMMMMMMMMM-`MMMMMMM:` oNMMMMM+ mM
+[INFO]    MM..NMMNs./mNMMMMMMMy sMMMMMMMMMMMMMMMMMMo hMMMMMMMNm/.sNMMN`-MM
+[INFO]    MMd`:mMNomMMMMMMMMMy`:MMMMMMMNmmmmNMMMMMMN:`hMMMMMMMMMdoNMm-`dMM
+[INFO]    MMMm:.omMMMMMMMMNh/  sdmmho/.`..`-``-/sddh+  /hNMMMMMMMMdo.:mMMM
+[INFO]    MMMMMd+--/osss+:-:/`  ```:- .ym+ hmo``:-`   `+:-:ossso/-:+dMMMMM
+[INFO]    MMMMMMMNmhysosydmNMo   /ds`/NMM+ hMMd..dh.  sMNmdysosyhmNMMMMMMM
+[INFO]    MMMMMMMMMMMMMMMMMMMs .:-:``hmmN+ yNmds -:.:`-NMMMMMMMMMMMMMMMMMM
+[INFO]    MMMMMMMMMMMMMMMMMMN.-mNm- //:::. -:://: +mMd`-NMMMMMMMMMMMMMMMMM
+[INFO]    MMMMMMMMMMMMMMMMMM+ dMMN -MMNNN+ yNNNMN :MMMs sMMMMMMMMMMMMMMMMM
+[INFO]    MMMMMMMMMMMMMMMMMM`.mmmy /mmmmm/ smmmmm``mmmh :MMMMMMMMMMMMMMMMM
+[INFO]    MMMMMMMMMMMMMMMMMM``:::- ./////. -:::::` :::: -MMMMMMMMMMMMMMMMM
+[INFO]    MMMMMMMMMMMMMMMMMM:`mNNd /NNNNN+ hNNNNN .NNNy +MMMMMMMMMMMMMMMMM
+[INFO]    MMMMMMMMMMMMMMMMMMd`/MMM.`ys+//. -/+oso +MMN.`mMMMMMMMMMMMMMMMMM
+[INFO]    MMMMMMMMMMMMMMMMMMMy /o:- `oyhd/ shys+ `-:s-`hMMMMMMMMMMMMMMMMMM
+[INFO]    MMMMMMMMNmdhhhdmNMMM`  +d+ sMMM+ hMMN:`hh-  sMMNmdhhhdmNMMMMMMMM
+[INFO]    MMMMMms:::/++//::+ho    .+- /dM+ hNh- +/`   -h+:://++/::/smMMMMM
+[INFO]    MMMN+./hmMMMMMMNds-  ./oso:.``:. :-``.:os+-  -sdNMMMMMMmy:.oNMMM
+[INFO]    MMm-.hMNhNMMMMMMMMNo`/MMMMMNdhyyyyhhdNMMMM+`oNMMMMMMMMNhNMh.-mMM
+[INFO]    MM:`mMMN/-sNNMMMMMMMo yMMMMMMMMMMMMMMMMMMy sMMMMMMMNNs-/NMMm`:MM
+[INFO]    Mm /MMMMMd/.-oMMMMMMN :MMMMMMMMMMMMMMMMMM-`MMMMMMMo-./dMMMMM/ NM
+[INFO]    Mm /MMMMMMm:-`sNMMMMN :MMMMMMMMMMMMMMMMMM-`MMMMMNs`-/NMMMMMM/ NM
+[INFO]    MM:`mMMMMMMMMd/-sMMMo yMMMMMMMMMMMMMMMMMMy sMMMs-/dMMMMMMMMd`:MM
+[INFO]    MMm-.hMMMMMMMMMdhMNo`+MMMMMMMMMMMMMMMMMMMM+`oNMhdMMMMMMMMMh.-mMM
+[INFO]    MMMNo./hmNMMMMMNms--yMMMMMMMMMMMMMMMMMMMMMMy--smNMMMMMNmy/.oNMMM
+[INFO]    MMMMMms:-:/+++/:-+hMMMMMMMMMMMMMMMMMMMMMMMMMNh+-:/+++/:-:smMMMMM
+[INFO]    MMMMMMMMNdhhyhdmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMmdhyhhmNMMMMMMMM
+[INFO]    MMMMMMMMMMMMMMMNNNNNMMMMMMNNNNNNMMMMMMMMNNMMMMMMMNNMMMMMMMMMMMMM
+[INFO]    MMMMMMMMMMMMMh/-...-+dMMMm......:+hMMMMs../MMMMMo..sMMMMMMMMMMMM
+[INFO]    MMMMMMMMMMMM/  /yhy-  sMMm  -hhy/  :NMM+   oMMMy   /MMMMMMMMMMMM
+[INFO]    MMMMMMMMMMMy  /MMMMN`  NMm  /MMMMo  +MM: .` yMd``` :MMMMMMMMMMMM
+[INFO]    MMMMMMMMMMM+  sMMMMM:  hMm  /MMMMd  -MM- /s `h.`d- -MMMMMMMMMMMM
+[INFO]    MMMMMMMMMMMs  +MMMMM.  mMm  /MMMMy  /MM. +M/   yM: `MMMMMMMMMMMM
+[INFO]    MMMMMMMMMMMN-  smNm/  +MMm  :NNdo` .mMM` oMM+/yMM/  MMMMMMMMMMMM
+[INFO]    MMMMMMMMMMMMNo-    `:yMMMm      `:sNMMM` sMMMMMMM+  NMMMMMMMMMMM
+[INFO]    MMMMMMMMMMMMMMMNmmNMMMMMMMNmmmmNMMMMMMMNNMMMMMMMMMNNMMMMMMMMMMMM
+[INFO]    ODM app finished - Mon May 18 13:44:43  2026
+Postprocessing: /var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca
+
+Found point cloud: odm_georeferencing/odm_georeferenced_model.laz
+
+Entwine point cloud is already built.
+
+Entwine point cloud is already built.
+
+Postprocessing: done (•̀ᴗ•́)و!

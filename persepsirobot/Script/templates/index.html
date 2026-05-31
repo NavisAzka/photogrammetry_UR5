@@ -111,7 +111,44 @@
   }
 
   .form-group { margin-bottom: 12px; }
-  label { display: block; color: var(--muted); font-size: 11px; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .field-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--muted);
+    font-size: 11px;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .field-label span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .help-btn {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    line-height: 1;
+    cursor: help;
+    flex: 0 0 auto;
+    transition: border-color 0.15s, color 0.15s, background 0.15s;
+  }
+  .help-btn:hover,
+  .help-btn:focus {
+    outline: none;
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(79,142,247,0.08);
+  }
   input[type=text], input[type=number] {
     width: 100%;
     background: var(--bg);
@@ -291,33 +328,57 @@
       <div class="section-title">Configuration</div>
 
       <div class="form-group">
-        <label>ESP32 IP</label>
+        <div class="field-label">
+          <span>ESP32 IP</span>
+          <button type="button" class="help-btn" title="IP address or URL of the ESP32 board. Use the address where the relay and input endpoints are exposed, for example http://192.168.200.219.">?</button>
+        </div>
         <input type="text" id="cap-esp32" value="{{ config.esp32_ip }}">
       </div>
       <div class="form-group">
-        <label>Camera Device</label>
+        <div class="field-label">
+          <span>Camera Device</span>
+          <button type="button" class="help-btn" title="Full Linux camera path used by OpenCV and V4L2. Use /dev/video0 or a stable by-id path such as /dev/v4l/by-id/... .">?</button>
+        </div>
         <input type="text" id="cap-device" value="{{ config.camera_device }}">
       </div>
+      <div class="form-group" style="margin-top:-4px;color:var(--muted);font-size:12px;line-height:1.5;">
+        Use the full device path, for example <code>/dev/video0</code> or <code>/dev/v4l/by-id/... </code>.
+      </div>
       <div class="form-group">
-        <label>Dataset Save Directory</label>
+        <div class="field-label">
+          <span>Dataset Save Directory</span>
+          <button type="button" class="help-btn" title="Folder where captured photos are stored. Keep this inside the mounted datasets directory if you want the files to persist on the host.">?</button>
+        </div>
         <input type="text" id="cap-savedir" value="{{ config.save_dir }}">
       </div>
       <div class="row-2">
         <div class="form-group">
-          <label>Frame Width</label>
+          <div class="field-label">
+            <span>Frame Width</span>
+            <button type="button" class="help-btn" title="Capture width in pixels. Use a size supported by your camera, such as 1280.">?</button>
+          </div>
           <input type="number" id="cap-width" value="{{ config.frame_width }}">
         </div>
         <div class="form-group">
-          <label>Frame Height</label>
+          <div class="field-label">
+            <span>Frame Height</span>
+            <button type="button" class="help-btn" title="Capture height in pixels. Use a size supported by your camera, such as 720.">?</button>
+          </div>
           <input type="number" id="cap-height" value="{{ config.frame_height }}">
         </div>
       </div>
       <div class="form-group">
-        <label>Relay ID</label>
+        <div class="field-label">
+          <span>Relay ID</span>
+          <button type="button" class="help-btn" title="Relay channel controlled on the ESP32. This should match the relay ID used by your turntable or motor controller.">?</button>
+        </div>
         <input type="number" id="cap-relay" value="{{ config.relay_id }}">
       </div>
 
       <div class="btn-row">
+        <button class="btn btn-ghost" id="btn-cap-save" onclick="saveCaptureConfig()">
+          Save Settings
+        </button>
         <button class="btn btn-green" id="btn-cap-start" onclick="captureStart()">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
           Start Capture
@@ -358,11 +419,17 @@
 
       <div class="row-2">
         <div class="form-group">
-          <label>Host</label>
+          <div class="field-label">
+            <span>Host</span>
+            <button type="button" class="help-btn" title="Hostname or IP address of the NodeODM server. For the current Docker setup on this machine, use host.docker.internal.">?</button>
+          </div>
           <input type="text" id="odm-host" value="{{ config.node_host }}">
         </div>
         <div class="form-group">
-          <label>Port</label>
+          <div class="field-label">
+            <span>Port</span>
+            <button type="button" class="help-btn" title="TCP port where NodeODM listens. In this project version the external NodeODM is expected on port 6969.">?</button>
+          </div>
           <input type="number" id="odm-port" value="{{ config.node_port }}">
         </div>
       </div>
@@ -370,11 +437,17 @@
       <div class="section-title">Paths</div>
 
       <div class="form-group">
-        <label>Input Folder (images)</label>
+        <div class="field-label">
+          <span>Input Folder (images)</span>
+          <button type="button" class="help-btn" title="Folder containing the captured photos that will be sent to ODM. Usually this is the datasets directory.">?</button>
+        </div>
         <input type="text" id="odm-input" value="{{ config.odm_input }}">
       </div>
       <div class="form-group">
-        <label>Output Folder</label>
+        <div class="field-label">
+          <span>Output Folder</span>
+          <button type="button" class="help-btn" title="Destination folder for the reconstruction results generated by ODM.">?</button>
+        </div>
         <input type="text" id="odm-output" value="{{ config.odm_output }}">
       </div>
 
@@ -416,6 +489,17 @@ function toast(msg, type = 'ok') {
 // =========================================================
 function clearLog(id) {
   document.getElementById(id).innerHTML = '';
+}
+
+function readCaptureConfig() {
+  return {
+    esp32_ip: document.getElementById('cap-esp32').value,
+    camera_device: document.getElementById('cap-device').value,
+    save_dir: document.getElementById('cap-savedir').value,
+    frame_width: parseInt(document.getElementById('cap-width').value),
+    frame_height: parseInt(document.getElementById('cap-height').value),
+    relay_id: parseInt(document.getElementById('cap-relay').value),
+  };
 }
 
 function appendLog(id, text) {
@@ -462,14 +546,7 @@ function setBadge(id, state) {
 let captureES = null;
 
 function captureStart() {
-  const params = {
-    esp32_ip: document.getElementById('cap-esp32').value,
-    camera_device: document.getElementById('cap-device').value,
-    save_dir: document.getElementById('cap-savedir').value,
-    frame_width: parseInt(document.getElementById('cap-width').value),
-    frame_height: parseInt(document.getElementById('cap-height').value),
-    relay_id: parseInt(document.getElementById('cap-relay').value),
-  };
+  const params = readCaptureConfig();
 
   fetch('/capture/start', {
     method: 'POST',
@@ -481,6 +558,17 @@ function captureStart() {
     setCapRunning(true);
     startCaptureStream();
   }).catch(() => toast('Failed to start capture', 'err'));
+}
+
+function saveCaptureConfig() {
+  fetch('/config', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(readCaptureConfig()),
+  }).then(r => r.json()).then(data => {
+    if (!data.ok) { toast('Failed to save settings', 'err'); return; }
+    toast('Capture settings saved', 'ok');
+  }).catch(() => toast('Failed to save settings', 'err'));
 }
 
 function captureStop() {
@@ -652,6 +740,22 @@ refreshDatasetCount();
 pollCaptureStatus();
 pollOdmInitStatus();
 setInterval(refreshDatasetCount, 5000);
+
+fetch('/config')
+  .then(r => r.json())
+  .then(cfg => {
+    document.getElementById('cap-esp32').value = cfg.esp32_ip ?? document.getElementById('cap-esp32').value;
+    document.getElementById('cap-device').value = cfg.camera_device ?? document.getElementById('cap-device').value;
+    document.getElementById('cap-savedir').value = cfg.save_dir ?? document.getElementById('cap-savedir').value;
+    document.getElementById('cap-width').value = cfg.frame_width ?? document.getElementById('cap-width').value;
+    document.getElementById('cap-height').value = cfg.frame_height ?? document.getElementById('cap-height').value;
+    document.getElementById('cap-relay').value = cfg.relay_id ?? document.getElementById('cap-relay').value;
+    document.getElementById('odm-host').value = cfg.node_host ?? document.getElementById('odm-host').value;
+    document.getElementById('odm-port').value = cfg.node_port ?? document.getElementById('odm-port').value;
+    document.getElementById('odm-input').value = cfg.odm_input ?? document.getElementById('odm-input').value;
+    document.getElementById('odm-output').value = cfg.odm_output ?? document.getElementById('odm-output').value;
+  })
+  .catch(() => {});
 </script>
 
 </body>

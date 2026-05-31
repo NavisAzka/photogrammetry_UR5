@@ -13,7 +13,7 @@ The project provides:
 ## Project Layout
 
 ```text
-{Workspace}/
+{Workspace}
 ├── persepsirobot/
 │   ├── Script/
 │   │   ├── app.py
@@ -63,6 +63,8 @@ Depending on how you run the project, you may also need:
 
 The recommended setup is inside `persepsirobot/`.
 
+This Docker configuration runs the Flask app in a container, but it expects NodeODM to already be running on the host machine at port `6969`.
+
 ```bash
 cd persepsirobot
 docker compose up --build -d
@@ -71,7 +73,7 @@ docker compose up --build -d
 The compose file starts:
 
 - `persepsi` on port `12345`
-- `nodeodm` on port `3000`
+- it connects to an external NodeODM at `host.docker.internal:6969`
 
 The web UI is available at:
 
@@ -114,12 +116,20 @@ http://localhost:12345
 The Docker setup starts both the Flask control panel and NodeODM:
 
 - `persepsi` on port `12345`
-- `nodeodm` on port `3000`
+- external NodeODM must already be running on port `6969`
 
 The compose file also mounts these host folders so your data persists:
 
 - `./datasets:/app/datasets`
 - `./output:/app/output`
+
+This Docker setup expects NodeODM to already be running on the host machine at:
+
+```text
+http://localhost:6969
+```
+
+The `persepsi` container reaches that service through `host.docker.internal:6969`.
 
 ### Camera device
 
@@ -145,7 +155,7 @@ cd persepsirobot
 python3 Script/app.py
 ```
 
-For this mode, NodeODM must be running separately on `localhost:3000`.
+For this mode, NodeODM must be running separately on `localhost:6969`.
 
 ## Capture Pipeline
 

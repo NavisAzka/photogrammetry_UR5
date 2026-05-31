@@ -28,7 +28,7 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 config = {
     "esp32_ip": "http://192.168.200.219",
-    "camera_device": "/dev/v4l/by-id/usb-FEC_NYK_NEMESIS_202001010001-video-index0",
+    "camera_device": "/dev/video2",
     "save_dir": os.path.join(os.path.dirname(SCRIPT_DIR), "datasets"),
     "frame_width": 1280,
     "frame_height": 720,

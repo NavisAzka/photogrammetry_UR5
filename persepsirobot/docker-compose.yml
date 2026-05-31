@@ -2,6 +2,7 @@ services:
 
   persepsi:
     build: .
+    container_name: photogrametry_ui
     ports:
       - "12345:12345"
     volumes:
@@ -14,20 +15,9 @@ services:
     group_add:
       - video                         # grants access to /dev/video*
     environment:
-      # NodeODM connection (uses service name as hostname inside compose network)
-      - NODE_HOST=nodeodm
-      - NODE_PORT=3000
-    depends_on:
-      - nodeodm
+      # NodeODM runs on the host machine
+      - NODE_HOST=host.docker.internal
+      - NODE_PORT=6969
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     restart: unless-stopped
-
-  nodeodm:
-    image: opendronemap/nodeodm:latest
-    ports:
-      - "3000:3000"                   # expose for direct API access if needed
-    volumes:
-      - nodeodm_data:/var/www/data    # NodeODM task files
-    restart: unless-stopped
-
-volumes:
-  nodeodm_data:

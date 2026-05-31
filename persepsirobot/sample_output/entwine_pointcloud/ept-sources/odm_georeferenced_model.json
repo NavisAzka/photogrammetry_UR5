@@ -1,0 +1,267 @@
+{
+  "bounds": [
+    -0.009756214916706085,
+    -0.7078198194503784,
+    -5.002904891967773,
+    0.8141738772392273,
+    0.4710577726364136,
+    -4.444143772125244
+  ],
+  "metadata": {
+    "readers.las": {
+      "comp_spatialreference": "",
+      "compressed": true,
+      "copc": false,
+      "count": 213688,
+      "creation_doy": 0,
+      "creation_year": 2026,
+      "dataformat_id": 3,
+      "dataoffset": 333,
+      "filesource_id": 0,
+      "global_encoding": 0,
+      "global_encoding_base64": "AAA=",
+      "header_size": 227,
+      "major_version": 1,
+      "maxx": 0.8141738772,
+      "maxy": 0.4710577726,
+      "maxz": -4.444143772,
+      "minor_version": 2,
+      "minx": -0.009756214917,
+      "miny": -0.7078198195,
+      "minz": -5.002904892,
+      "offset_x": 0,
+      "offset_y": 0,
+      "offset_z": 0,
+      "point_length": 34,
+      "project_id": "00000000-0000-0000-0000-000000000000",
+      "scale_x": 0.01,
+      "scale_y": 0.01,
+      "scale_z": 0.01,
+      "software_id": "PDAL 2.4.3 (Releas)",
+      "spatialreference": "",
+      "srs": {
+        "compoundwkt": "",
+        "horizontal": "",
+        "isgeocentric": false,
+        "isgeographic": false,
+        "prettycompoundwkt": "",
+        "prettywkt": "",
+        "proj4": "",
+        "units": {
+          "horizontal": "unknown",
+          "vertical": ""
+        },
+        "vertical": "",
+        "wkt": ""
+      },
+      "system_id": "PDAL",
+      "vlr_0": {
+        "data": "AgAAAAMEAwAAAAAAUMMAAP////////////////////8DAAYAFAACAAcACAACAAgABgACAA==",
+        "description": "http://laszip.org",
+        "record_id": 22204,
+        "user_id": "laszip encoded"
+      },
+      "vlr_1": {
+        "data": "AgAAAAMEAwAAAAAAUMMAAP////////////////////8DAAYAFAACAAcACAACAAgABgACAA==",
+        "description": "http://laszip.org",
+        "record_id": 22204,
+        "user_id": "laszip encoded"
+      }
+    }
+  },
+  "path": "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_georeferencing/odm_georeferenced_model.laz",
+  "pipeline": [
+    {
+      "filename": "/var/www/data/fb703f30-e525-49f4-b4ab-4ce2560137ca/odm_georeferencing/odm_georeferenced_model.laz"
+    }
+  ],
+  "points": 213688,
+  "schema": [
+    {
+      "count": 213688,
+      "maximum": 0.81,
+      "mean": 0.4700966362172868,
+      "minimum": -0.01,
+      "name": "X",
+      "scale": 0.01,
+      "size": 4,
+      "stddev": 0.15155700936736913,
+      "type": "signed",
+      "variance": 0.02296952708838081
+    },
+    {
+      "count": 213688,
+      "maximum": 0.47000000000000003,
+      "mean": -0.2549610179326847,
+      "minimum": -0.71,
+      "name": "Y",
+      "scale": 0.01,
+      "size": 4,
+      "stddev": 0.22442359034198003,
+      "type": "signed",
+      "variance": 0.05036594790198487
+    },
+    {
+      "count": 213688,
+      "maximum": -4.44,
+      "mean": -4.584581258657503,
+      "minimum": -5,
+      "name": "Z",
+      "scale": 0.01,
+      "size": 4,
+      "stddev": 0.09993570644375704,
+      "type": "signed",
+      "variance": 0.009987145422412783
+    },
+    {
+      "count": 213688,
+      "maximum": 0,
+      "mean": 0,
+      "minimum": 0,
+      "name": "Intensity",
+      "size": 2,
+      "stddev": 0,
+      "type": "unsigned",
+      "variance": 0
+    },
+    {
+      "count": 213688,
+      "maximum": 1,
+      "mean": 1,
+      "minimum": 1,
+      "name": "ReturnNumber",
+      "size": 1,
+      "stddev": 0,
+      "type": "unsigned",
+      "variance": 0
+    },
+    {
+      "count": 213688,
+      "maximum": 1,
+      "mean": 1,
+      "minimum": 1,
+      "name": "NumberOfReturns",
+      "size": 1,
+      "stddev": 0,
+      "type": "unsigned",
+      "variance": 0
+    },
+    {
+      "count": 213688,
+      "maximum": 0,
+      "mean": 0,
+      "minimum": 0,
+      "name": "ScanDirectionFlag",
+      "size": 1,
+      "stddev": 0,
+      "type": "unsigned",
+      "variance": 0
+    },
+    {
+      "count": 213688,
+      "maximum": 0,
+      "mean": 0,
+      "minimum": 0,
+      "name": "EdgeOfFlightLine",
+      "size": 1,
+      "stddev": 0,
+      "type": "unsigned",
+      "variance": 0
+    },
+    {
+      "count": 213688,
+      "counts": [
+        {
+          "count": 213688,
+          "value": 0
+        }
+      ],
+      "maximum": 0,
+      "mean": 0,
+      "minimum": 0,
+      "name": "Classification",
+      "size": 1,
+      "stddev": 0,
+      "type": "unsigned",
+      "variance": 0
+    },
+    {
+      "count": 213688,
+      "maximum": 0,
+      "mean": 0,
+      "minimum": 0,
+      "name": "ScanAngleRank",
+      "size": 4,
+      "stddev": 0,
+      "type": "float",
+      "variance": 0
+    },
+    {
+      "count": 213688,
+      "maximum": 10,
+      "mean": 4.14432256373771,
+      "minimum": 2,
+      "name": "UserData",
+      "size": 1,
+      "stddev": 2.411447966829036,
+      "type": "unsigned",
+      "variance": 5.815081296723891
+    },
+    {
+      "count": 213688,
+      "maximum": 0,
+      "mean": 0,
+      "minimum": 0,
+      "name": "PointSourceId",
+      "size": 2,
+      "stddev": 0,
+      "type": "unsigned",
+      "variance": 0
+    },
+    {
+      "count": 213688,
+      "maximum": 0,
+      "mean": 0,
+      "minimum": 0,
+      "name": "GpsTime",
+      "size": 8,
+      "stddev": 0,
+      "type": "float",
+      "variance": 0
+    },
+    {
+      "count": 213688,
+      "maximum": 255,
+      "mean": 97.35863969899962,
+      "minimum": 13,
+      "name": "Red",
+      "size": 2,
+      "stddev": 45.87847194307738,
+      "type": "unsigned",
+      "variance": 2104.8341878317383
+    },
+    {
+      "count": 213688,
+      "maximum": 254,
+      "mean": 88.36226180225309,
+      "minimum": 31,
+      "name": "Green",
+      "size": 2,
+      "stddev": 30.540323574015922,
+      "type": "unsigned",
+      "variance": 932.7113640055926
+    },
+    {
+      "count": 213688,
+      "maximum": 236,
+      "mean": 83.2787849575088,
+      "minimum": 22,
+      "name": "Blue",
+      "size": 2,
+      "stddev": 26.397567183672283,
+      "type": "unsigned",
+      "variance": 696.8315532164918
+    }
+  ],
+  "srs": {}
+}
